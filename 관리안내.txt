@@ -22,3 +22,8 @@
 
 [사진 바꾸기]
   assets\profile-portrait.jpg 와 전자책\src\profile-portrait.jpg 를 같은 이름의 새 사진으로 교체
+
+[공개 홈페이지 주소]
+  https://theorm303-droid.github.io/insurance-guide/
+  수정 후 올리기: 이 폴더에서  git add -A  →  git commit -m "수정 내용"  →  git push
+  (1~2분 뒤 자동 반영)
