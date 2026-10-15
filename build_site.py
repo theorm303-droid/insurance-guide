@@ -189,10 +189,32 @@ TABBAR = f"""<nav class="tabbar" aria-label="빠른 이동">
 <a class="kakao-fab" href="{KAKAO_CHAT}" target="_blank" rel="noopener" aria-label="카카오톡으로 상담하기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9l-.9 3.3c-.1.3.3.6.6.4l3.9-2.6c.4 0 .8.1 1.2.1 5 0 9-3.1 9-7S17 4 12 4z"/></svg><span>카톡 상담</span></a>"""
 
 
+SITE_URL = "https://theorm303-droid.github.io/insurance-guide/"
+OG_DESC = "어려운 보험을 쉽게, 내 보험 점검부터. 실손·건강·간병·노후 준비·보험금 청구까지 보험친구 박혜경이 쉽게 풀어 드립니다."
+
+
+def og_tags(title, desc):
+    """카톡·문자·SNS 링크 미리보기(썸네일) 정보."""
+    d = html.escape(desc or OG_DESC)
+    t = html.escape(title if title != SITE_NAME else "보험이 쉬워지는 시간 · 보험친구 박혜경")
+    img = SITE_URL + "assets/og-image.jpg"
+    return (f'<meta property="og:type" content="website">\n'
+            f'<meta property="og:site_name" content="보험이 쉬워지는 시간">\n'
+            f'<meta property="og:title" content="{t}">\n'
+            f'<meta property="og:description" content="{d}">\n'
+            f'<meta property="og:image" content="{img}">\n'
+            f'<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
+            f'<meta property="og:url" content="{SITE_URL}">\n'
+            f'<meta name="twitter:card" content="summary_large_image">\n'
+            f'<meta name="twitter:image" content="{img}">\n'
+            f'<link rel="icon" href="assets/profile-face.jpg">')
+
+
 def page(title, inner, active_group=None, desc="", doctype=True):
     head = (f'<title>{html.escape(title)}</title>\n'
             f'<meta name="claude:viewport-fit-sides" content="cover">\n'
-            f'<meta name="description" content="{html.escape(desc)}">\n{FONTS}\n'
+            f'<meta name="description" content="{html.escape(desc)}">\n'
+            f'{og_tags(title, desc)}\n{FONTS}\n'
             '<link rel="stylesheet" href="assets/site.css">')
     content = f"{gnb(active_group)}\n<main id=\"main\">{inner}</main>\n{FOOT}\n{TABBAR}\n<script src=\"assets/site.js\"></script>"
     if not doctype:
@@ -473,7 +495,7 @@ home_inner = f"""<section class="hero2">
     <div><b>1년마다 다시</b><p>갱신·만기·가족 변화가 있을 때마다 다시 점검합니다.</p></div>
   </div>
 </div></section>"""
-(OUT / "index.html").write_text(page(SITE_NAME, home_inner, None, "종신·연금, 자동차·운전자보험, 암·뇌·심장, 간병·치매, 실손 1~5세대까지 분야별 보험 점검 가이드"), encoding="utf-8")
+(OUT / "index.html").write_text(page(SITE_NAME, home_inner, None, OG_DESC), encoding="utf-8")
 (OUT / "_artifact_home.html").write_text(page(SITE_NAME, home_inner, None, "", doctype=False), encoding="utf-8")
 
 # ---------------------------------------------------------------- 스크립트(검색 색인 포함)

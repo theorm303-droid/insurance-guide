@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body { font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; background: linear-gradient(180deg, #f3f8ec 0%, #e4f0d6 100%); position: relative; color: #1f4a2a; }
+  .scene { position: absolute; left: 0; right: 0; bottom: 0; height: 215px; background: url("../../assets/hero-scene.jpg") center bottom / cover no-repeat;
+           -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 55%); }
+  .wrap { position: absolute; left: 80px; top: 92px; right: 70px; display: flex; gap: 46px; align-items: flex-start; }
+  .photo { width: 270px; height: 270px; border-radius: 50%; object-fit: cover; border: 8px solid #fff; box-shadow: 0 10px 30px rgba(31,74,42,.25); flex: none; }
+  .top { font-size: 30px; font-weight: 700; color: #3d5a43; margin: 8px 0 6px; }
+  h1 { font-size: 70px; line-height: 1.08; margin: 0; font-weight: 900; letter-spacing: -2px; }
+  .name { font-size: 40px; font-weight: 800; margin: 14px 0 22px; }
+  .name span { color: #c2573a; }
+  .pills { display: flex; gap: 12px; flex-wrap: wrap; }
+  .pills b { font-size: 26px; padding: 8px 22px; border-radius: 999px; background: #fff; border: 3px solid #8bb07a; }
+</style></head>
+<body>
+  <div class="scene"></div>
+  <div class="wrap">
+    <img class="photo" src="profile-face.jpg" alt="">
+    <div>
+      <div class="top">어려운 보험을 쉽게, 내 보험 점검부터</div>
+      <h1>보험이 쉬워지는 시간</h1>
+      <div class="name">보험친구 <span>박혜경</span></div>
+      <div class="pills"><b>실손</b><b>건강</b><b>간병</b><b>노후 준비</b><b>보험금 청구</b></div>
+    </div>
+  </div>
+</body></html>
