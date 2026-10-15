@@ -203,7 +203,7 @@ def page(title, inner, active_group=None, desc="", doctype=True):
 
 
 CTA = f"""<aside class="cta" aria-label="상담 안내">
-  <a class="cta-face" href="profile.html"><img src="assets/profile-portrait.jpg" alt="보험친구 박혜경 사진" width="64" height="64" loading="lazy"></a>
+  <a class="cta-face" href="profile.html"><img src="assets/profile-face.jpg" alt="보험친구 박혜경 사진" width="64" height="64" loading="lazy"></a>
   <div><b>이 내용, 내 보험에 적용해 보고 싶다면</b><p>보험증권 사진 한 장만 보내 주세요. 부족한 보장과 겹치는 보장을 함께 살펴봐 드릴게요. 가입보다 점검이 먼저입니다. <a href="profile.html">— 보험친구 박혜경</a></p></div>
   <div class="cta-btns"><a class="btn btn-kakao" href="{KAKAO_CHAT}" target="_blank" rel="noopener">카카오톡 상담</a><a class="btn btn-primary" href="contact.html">상담 신청</a></div>
 </aside>"""
@@ -288,7 +288,7 @@ topics = "".join(f'<label class="chk"><input type="checkbox" name="topic" value=
 contact_inner = f"""<div class="wrap">{crumb(("상담 신청", None))}
 <div class="contact-grid">
   <section class="contact-card" aria-label="상담사 정보">
-    <div class="contact-face"><img src="assets/profile-portrait.jpg" alt="보험친구 박혜경 사진" width="96" height="96"><div><div class="eyebrow">CONTACT</div><h1>보험 상담 신청</h1></div></div>
+    <div class="contact-face"><img src="assets/profile-face.jpg" alt="보험친구 박혜경 사진" width="96" height="96"><div><div class="eyebrow">CONTACT</div><h1>보험 상담 신청</h1></div></div>
     <p class="lead2">안녕하세요, 보험이 쉬워지는 시간 보험친구 박혜경입니다. 보장분석, 실손 전환, 부모님 간병·치매 보험까지 궁금한 점을 편하게 남겨 주세요. 확인 후 직접 연락드립니다.</p>
     <dl class="who">
       <dt>상담사</dt><dd><b>{CONTACT["name"]}</b> · {CONTACT["role"]}</dd>
@@ -335,7 +335,7 @@ contact_inner = f"""<div class="wrap">{crumb(("상담 신청", None))}
 
 # ---------------------------------------------------------------- 상담사 소개
 HOME_PROFILE = f"""<div class="pf-band">
-  <a class="pf-photo" href="profile.html"><img src="assets/profile-portrait.jpg" alt="보험친구 박혜경 사진" width="330" height="341" loading="lazy"></a>
+  <a class="pf-photo" href="profile.html"><picture><source media="(max-width: 760px)" srcset="assets/profile-face.jpg"><img src="assets/profile-portrait.jpg" alt="보험친구 박혜경 사진" width="330" height="341" loading="lazy"></picture></a>
   <div class="pf-body">
     <div class="eyebrow">상담사 소개</div>
     <h2>안녕하세요, <span class="nb">보험이 쉬워지는 시간</span><br><span class="nb">보험친구 <span>박혜경</span>입니다</span></h2>

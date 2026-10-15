@@ -721,3 +721,5 @@ article.content { min-width: 0; max-width: 820px; }
 .pf-body p.pf-story b { color: var(--ink); font-weight: 700; }
 .pf-body p.pf-hello { padding-left: 14px; border-left: 3px solid var(--h2-line); }
 @media (max-width: 760px) { .pf-body p.pf-story, .pf-body p.pf-hello { font-size: .95rem; } }
+
+.cta-face img, .contact-face img { object-position: 50% 40%; }
