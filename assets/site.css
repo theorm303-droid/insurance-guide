@@ -598,7 +598,15 @@ article.content { min-width: 0; max-width: 820px; }
 .pf-body h2 span, .pf-name b { color: var(--fill-o); }
 .pf-body p { color: var(--sub); margin: 0 0 14px; }
 .pf-tags { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-wrap: wrap; gap: 6px; }
-.pf-tags li { font-size: .82rem; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.pf-tags { gap: 8px; }
+.pf-tags li a {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 6px 16px; border-radius: 999px;
+  background: var(--h2-pill); color: var(--h2-ink); border: 2px solid var(--h2-line);
+  font-weight: 700; font-size: .92rem; text-decoration: none;
+}
+.pf-tags li a:hover { background: var(--h2-ink); color: var(--h2-bg1); border-color: var(--h2-ink); }
+.pf-body p.pf-hello { color: var(--h2-ink); font-size: 1.02rem; line-height: 1.75; }
+.pf-hello b { color: var(--h2-ink); }
 .pf-btns { display: flex; flex-wrap: wrap; gap: 10px; }
 
 .pf-hero { background: var(--brand); color: var(--brand-ink); }

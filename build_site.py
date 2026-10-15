@@ -339,8 +339,9 @@ HOME_PROFILE = f"""<div class="pf-band">
   <div class="pf-body">
     <div class="eyebrow">상담사 소개</div>
     <h2>안녕하세요, <span class="nb">보험이 쉬워지는 시간</span><br><span class="nb">보험친구 <span>박혜경</span>입니다</span></h2>
-    <p>공방에서 아로마테라피·천연비누 강사로 10년 넘게 사람들을 만나 오다가, 지금은 {CONTACT["company"]}에서 보험설계사로 새 출발했습니다. 어려운 보험을 고객님의 언어로 쉽게 풀어 드리는 것이 제 일입니다.</p>
-    <ul class="pf-tags"><li>내 보험 점검</li><li>실손보험</li><li>암·뇌·심장</li><li>부모님 간병·치매</li><li>요양보호사 자격 취득</li></ul>
+    <p>공방에서 아로마테라피·천연비누 강사로 10년 넘게 사람들을 만나 오다가, 지금은 {CONTACT["company"]}에서 보험설계사로 새 출발했습니다.</p>
+    <p class="pf-hello">보험이 어렵게 느껴지셨다면<br>여기서 하나씩 쉽게 풀어 드릴게요.<br><b>내 보험 점검·실손·간병</b>, 편하게 물어보세요.</p>
+    <ul class="pf-tags"><li><a href="ch01.html">내 보험 점검</a></li><li><a href="cat-silson.html">실손보험</a></li><li><a href="cat-disease.html">암·뇌·심장</a></li><li><a href="cat-care.html">부모님 간병·치매</a></li><li><a href="profile.html">요양보호사 자격 취득</a></li></ul>
     <div class="pf-btns"><a class="btn btn-kakao" href="{KAKAO_CHAT}" target="_blank" rel="noopener">카카오톡 상담</a><a class="btn btn-ghost" href="profile.html">소개 더 보기</a></div>
   </div>
 </div>"""
