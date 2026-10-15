@@ -437,30 +437,23 @@ for gid, label, gtitle, gdesc, _p in GROUPS:
     cards.append(f'<div class="cat"><span class="count">{len(keys)} TOPICS</span><h3><a href="cat-{gid}.html">{label}</a></h3>'
                  f'<p class="desc">{html.escape(gdesc)}</p><ul>{lis}</ul>{more}</div>')
 chips = "".join(f'<a href="{k}.html">{html.escape(t)} <code>{html.escape(c)}</code></a>' for k, t, c in QUICK)
-home_inner = f"""<section class="hero"><div class="wrap">
-  <div>
-    <div class="eyebrow">2026년 10월 기준 · {len(order)}개 주제</div>
-    <h1>내 보험, 스스로 읽는 법</h1>
-    <p class="lead">종신보험부터 자동차·운전자보험, 암·뇌·심장, 간병·치매, 실손 1~5세대까지. 서랍 속 보험증권을 꺼내 놓고 분야별로 하나씩 점검해 보세요.</p>
+home_inner = f"""<section class="hero2">
+  <div class="wrap hero2-in">
+    <p class="h2-top">어려운 보험을 쉽게, 내 보험 점검부터</p>
+    <div class="h2-leaf" aria-hidden="true"><span></span><svg viewBox="0 0 40 20"><path d="M20 18C14 18 6 14 4 4c8 0 14 4 16 14zM20 18c6 0 14-4 16-14-8 0-14 4-16 14z"/></svg><span></span></div>
+    <h1>보험이 쉬워지는 시간</h1>
+    <p class="h2-name">보험친구 박혜경</p>
+    <nav class="h2-pills" aria-label="주요 분야">
+      <a href="cat-silson.html">실손</a><a href="cat-disease.html">건강</a><a href="cat-care.html">간병</a><a href="cat-life.html">노후 준비</a><a href="ch41.html">보험금 청구</a>
+    </nav>
     <div class="search" role="search">
       <label for="q" class="skip">주제 검색</label>
-      <input id="q" type="search" data-search placeholder="예: 운전자보험 변호사, 상속세, 5세대 실손" autocomplete="off">
+      <input id="q" type="search" data-search placeholder="궁금한 보험 검색 (예: 실손, 치매)" autocomplete="off">
       <div class="results" hidden></div>
     </div>
   </div>
-  <div class="policy" aria-label="보험증권 확인 항목">
-    <span class="stamp">CHECK</span>
-    <h2>보험증권에서 확인할 5가지</h2>
-    <div class="no">POLICY REVIEW · CHAPTER 01</div>
-    <dl>
-      <dt>① 상품 종류</dt><dd><a href="ch01.html">종신·건강·실손·운전자 중 무엇인가</a></dd>
-      <dt>② 납입·보장기간</dt><dd><a href="ch02.html">몇 세까지 내고, 몇 세까지 보장받나</a></dd>
-      <dt>③ 보장 내용</dt><dd><a href="ch13.html">담보 이름 한 글자가 보장 범위를 가른다</a></dd>
-      <dt>④ 적절한 보험료</dt><dd><a href="ch02.html">갱신 후 보험료까지 감당 가능한가</a></dd>
-      <dt>⑤ 비례보상 중복</dt><dd><a href="ch01.html">실손·배상책임은 겹쳐도 더 받지 못한다</a></dd>
-    </dl>
-  </div>
-</div></section>
+  <div class="h2-scene" role="img" aria-label="나무 집 모형과 책, 찻잔이 놓인 창가"></div>
+</section>
 <section class="section pf-home"><div class="wrap">{HOME_PROFILE}</div></section>
 <section class="section" style="padding-top:0"><div class="wrap">
   <div class="section-head"><h2>분야별 안내</h2><p>상단 메뉴와 같은 10개 분야입니다.</p></div>
