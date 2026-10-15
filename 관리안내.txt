@@ -25,5 +25,6 @@
 
 [공개 홈페이지 주소]
   https://theorm303-droid.github.io/insurance-guide/
+  (짧은 주소 https://theorm303-droid.github.io 로 들어와도 자동으로 이동)
   수정 후 올리기: 이 폴더에서  git add -A  →  git commit -m "수정 내용"  →  git push
   (1~2분 뒤 자동 반영)
