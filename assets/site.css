@@ -665,3 +665,7 @@ article.content { min-width: 0; max-width: 820px; }
 .foot-qr img { width: 88px; height: 88px; padding: 4px; }
 /* 휴대폰에서는 자기 화면의 QR을 찍을 수 없으므로 숨기고 버튼을 쓴다 */
 @media (max-width: 920px) { .qr-row, .foot-qr { display: none; } }
+
+.pf-body h2 .nb { white-space: nowrap; }
+.pf-body h2 span span { color: var(--fill-o); }
+.pf-body h2 .nb { color: inherit; }

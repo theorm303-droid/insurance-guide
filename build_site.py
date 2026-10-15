@@ -289,7 +289,7 @@ contact_inner = f"""<div class="wrap">{crumb(("상담 신청", None))}
 <div class="contact-grid">
   <section class="contact-card" aria-label="상담사 정보">
     <div class="contact-face"><img src="assets/profile-portrait.jpg" alt="보험친구 박혜경 사진" width="96" height="96"><div><div class="eyebrow">CONTACT</div><h1>보험 상담 신청</h1></div></div>
-    <p class="lead2">안녕하세요, 보험친구 박혜경입니다. 보장분석, 실손 전환, 부모님 간병·치매 보험까지 궁금한 점을 편하게 남겨 주세요. 확인 후 직접 연락드립니다.</p>
+    <p class="lead2">안녕하세요, 보험이 쉬워지는 시간 보험친구 박혜경입니다. 보장분석, 실손 전환, 부모님 간병·치매 보험까지 궁금한 점을 편하게 남겨 주세요. 확인 후 직접 연락드립니다.</p>
     <dl class="who">
       <dt>상담사</dt><dd><b>{CONTACT["name"]}</b> · {CONTACT["role"]}</dd>
       {ORG_ROWS}
@@ -338,7 +338,7 @@ HOME_PROFILE = f"""<div class="pf-band">
   <a class="pf-photo" href="profile.html"><img src="assets/profile-portrait.jpg" alt="보험친구 박혜경 사진" width="330" height="341" loading="lazy"></a>
   <div class="pf-body">
     <div class="eyebrow">상담사 소개</div>
-    <h2>안녕하세요, 보험친구 <span>박혜경</span>입니다</h2>
+    <h2>안녕하세요, <span class="nb">보험이 쉬워지는 시간</span><br><span class="nb">보험친구 <span>박혜경</span>입니다</span></h2>
     <p>공방에서 아로마테라피·천연비누 강사로 10년 넘게 사람들을 만나 오다가, 지금은 {CONTACT["company"]}에서 보험설계사로 새 출발했습니다. 어려운 보험을 고객님의 언어로 쉽게 풀어 드리는 것이 제 일입니다.</p>
     <ul class="pf-tags"><li>내 보험 점검</li><li>실손보험</li><li>암·뇌·심장</li><li>부모님 간병·치매</li><li>요양보호사 자격 취득</li></ul>
     <div class="pf-btns"><a class="btn btn-kakao" href="{KAKAO_CHAT}" target="_blank" rel="noopener">카카오톡 상담</a><a class="btn btn-ghost" href="profile.html">소개 더 보기</a></div>
