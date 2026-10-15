@@ -165,7 +165,7 @@ def gnb(active_group=None):
     <span class="spacer"></span>
     <a class="head-link" href="profile.html">상담사 소개</a>
     <a class="head-cta" href="contact.html">상담 신청</a>
-    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="mnav">메뉴</button>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="mnav">목록열기</button>
   </div>
   <nav class="gnb" aria-label="분야 메뉴"><div class="wrap"><ul>{"".join(items)}</ul></div></nav>
   <nav class="mnav" id="mnav" aria-label="모바일 메뉴"><div class="wrap"><div class="search msearch" role="search"><label for="mq" class="skip">주제 검색</label><input id="mq" type="search" data-search placeholder="주제 검색 (예: 상속세, 치매)" autocomplete="off"><div class="results" hidden></div></div>{"".join(mitems)}<div class="mcontact"><a class="btn btn-primary" href="contact.html">상담 신청하기</a><a class="btn btn-kakao" href="{KAKAO_CHAT}" target="_blank" rel="noopener">카카오톡 상담</a></div><a class="mall" href="profile.html">상담사 소개 — 보험친구 박혜경</a><a class="mall" href="about.html">이 사이트에 대해</a></div></nav>
@@ -182,7 +182,7 @@ FOOT = f"""<footer class="site-foot"><div class="wrap">
 
 TABBAR = f"""<nav class="tabbar" aria-label="빠른 이동">
   <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>홈</a>
-  <button type="button" data-open="menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>분야</button>
+  <button type="button" data-open="menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>목록</button>
   <button type="button" data-open="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>검색</button>
   <a href="contact.html" class="tab-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>상담 신청</a>
 </nav>
@@ -450,6 +450,25 @@ profile_inner = f"""<div class="pf-hero"><div class="wrap">
 </div>"""
 (OUT / "profile.html").write_text(page(f"상담사 소개 | {SITE_NAME}", profile_inner, None, "보험친구 박혜경 — 뉴니케GA 보험설계사, 어려운 보험을 쉽게 풀어드립니다"), encoding="utf-8")
 
+# ---------------------------------------------------------------- 홈 [목록열기] (휴대폰)
+_tl = []
+for gid, label, gtitle, _d, _p in GROUPS:
+    keys = [k for pp in parts if pp["group"] == gid for k in pp["chapters"]]
+    items = "".join(
+        f'<li class="tl-item"><a href="{k}.html"><span class="n">{pages[k]["label"]}</span>{html.escape(pages[k]["title"])}</a></li>'
+        for k in keys)
+    _tl.append(f'<details class="tl-group"><summary><b>{label}</b><small>{len(keys)}</small></summary>'
+               f'<ul>{items}</ul><a class="tl-all" href="cat-{gid}.html">{label} 전체 보기 →</a></details>')
+TOCLIST = f"""<details class="tl" id="toc-list">
+  <summary class="tl-btn"><span>목록열기</span><small>{len(GROUPS)}개 분야 · {len(order)}개 주제</small></summary>
+  <div class="tl-body">
+    <label class="skip" for="tl-q">목록에서 찾기</label>
+    <input id="tl-q" class="tl-search" type="search" data-filter placeholder="목록에서 찾기 (예: 실손, 치매, 운전자)" autocomplete="off">
+    <p class="tl-none" hidden>찾는 주제가 없어요. 다른 말로 검색해 보세요.</p>
+    {"".join(_tl)}
+  </div>
+</details>"""
+
 # ---------------------------------------------------------------- 홈
 cards = []
 for gid, label, gtitle, gdesc, _p in GROUPS:
@@ -478,7 +497,8 @@ home_inner = f"""<section class="hero2">
   <div class="h2-scene" role="img" aria-label="나무 집 모형과 책, 찻잔이 놓인 창가"></div>
 </section>
 <section class="section pf-home"><div class="wrap">{HOME_PROFILE}</div></section>
-<section class="section" style="padding-top:0"><div class="wrap">
+<section class="section tl-sec"><div class="wrap">{TOCLIST}</div></section>
+<section class="section home-cats" style="padding-top:0"><div class="wrap">
   <div class="section-head"><h2>분야별 안내</h2><p>상단 메뉴와 같은 10개 분야입니다.</p></div>
   <div class="cats">{"".join(cards)}</div>
 </div></section>
@@ -486,7 +506,7 @@ home_inner = f"""<section class="hero2">
   <div class="section-head"><h2>자주 찾는 주제</h2></div>
   <div class="chips">{chips}</div>
 </div></section>
-<section class="section" style="padding-top:0"><div class="wrap">
+<section class="section home-howto" style="padding-top:0"><div class="wrap">
   <div class="section-head"><h2>이렇게 활용하세요</h2></div>
   <div class="howto">
     <div><b>보험증권 모으기</b><p>'내보험다보여'에서 가족 전체 가입 내역을 조회합니다.</p></div>
@@ -512,7 +532,7 @@ js = """(function () {
     if (!head) return;
     head.classList.toggle('open', open);
     document.body.classList.toggle('menu-open', open);
-    if (btn) { btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.textContent = open ? '닫기' : '메뉴'; }
+    if (btn) { btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.textContent = open ? '목록닫기' : '목록열기'; }
   }
   if (btn) btn.addEventListener('click', function () { setMenu(!head.classList.contains('open')); });
 
@@ -602,6 +622,28 @@ js = """(function () {
       copyText(el.value, function (ok) { copyMsg(ok, el); });
     });
   }
+
+  // [목록열기] 안에서 바로 찾기
+  document.querySelectorAll('[data-filter]').forEach(function (inp) {
+    var box = inp.closest('.tl-body');
+    var none = box.querySelector('.tl-none');
+    inp.addEventListener('input', function () {
+      var v = inp.value.toLowerCase().replace(/\\s+/g, '');
+      var any = false;
+      box.querySelectorAll('.tl-group').forEach(function (g) {
+        var hit = 0;
+        var gname = g.querySelector('summary').textContent.toLowerCase().replace(/\\s+/g, '');
+        g.querySelectorAll('.tl-item').forEach(function (li) {
+          var ok = !v || gname.indexOf(v) >= 0 || li.textContent.toLowerCase().replace(/\\s+/g, '').indexOf(v) >= 0;
+          li.hidden = !ok; if (ok) hit++;
+        });
+        g.hidden = v && !hit;
+        g.open = !!(v && hit);
+        if (hit) any = true;
+      });
+      none.hidden = !v || any;
+    });
+  });
 
   // 검색(홈·메뉴 공용)
   var IDX = __INDEX__;
