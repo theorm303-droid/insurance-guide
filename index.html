@@ -1033,6 +1033,19 @@ main.page[hidden]{display:none!important}
   .h3-fields { padding-top: 44px; }
   .h3-head h2 { font-size: 1.5rem; }
 }
+
+/* 오렌지 타일: 내 보험 조회하기 하나만 */
+.hx-quick.one { grid-template-columns: 1fr; padding: 18px 22px; }
+.hx-quick.one a { display: flex; align-items: center; justify-content: center; gap: 18px; text-align: left; }
+.hx-quick.one a span { display: grid; gap: 2px; }
+.hx-quick.one a b { font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
+.hx-quick.one a small { font-size: .9rem; font-weight: 500; opacity: .9; }
+@media (max-width: 760px) {
+  .hx-quick.one { padding: 12px 10px; }
+  .hx-quick.one a { flex-direction: column; gap: 8px; text-align: center; }
+  .hx-quick.one a b { font-size: 1rem; }
+  .hx-quick.one a small { font-size: .78rem; }
+}
 </style></head><body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 <header class="site-head" id="top">
@@ -6139,10 +6152,8 @@ main.page[hidden]{display:none!important}
     <a class="hx-t" href="#cat-disease"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5 9 10v11c0 10 6.5 17 15 20 8.5-3 15-10 15-20V10z"/><path d="M24 16v14M17 23h14"/></svg></span><b>보장 내용 안내</b></a>
     <a class="hx-t" href="#ch41"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M33 21V9a3 3 0 0 0-3-3H11a3 3 0 0 0-3 3v28a3 3 0 0 0 3 3h12"/><path d="M14 14h13M14 21h13M14 28h7"/><circle cx="34" cy="34" r="9"/><path d="M30 31l2 6 2-4 2 4 2-6M29.5 34h9"/></svg></span><b>보험금 청구 안내</b></a>
     <a class="hx-t hx-pf" href="#profile"><span class="ic"><img src="assets/profile-face.jpg" alt="" width="96" height="96"></span><b>상담사 소개</b></a>
-    <div class="hx-quick">
-      <a href="https://pf.kakao.com/_AGxlFX/chat" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8C14 8 7 14 7 21.5c0 4.8 3 8.9 7.6 11.2L13 40l7.5-5c1.1.2 2.3.3 3.5.3 10 0 17-6 17-13.5S34 8 24 8z"/><path d="M17 21h.1M24 21h.1M31 21h.1"/></svg></span>카톡<br>상담</a>
-      <a href="#contact"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="7" width="26" height="34" rx="3"/><path d="M15 15h14M15 22h14M15 29h7"/><path d="m40 22-11 11-4 1 1-4 11-11z"/></svg></span>상담<br>신청</a>
-      <a href="https://cont.insure.or.kr" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="12"/><path d="m30 30 10 10"/><path d="M17 18a5 5 0 1 1 6 4.9V25M21 29h.1"/></svg></span>내 보험<br>조회하기</a>
+    <div class="hx-quick one">
+      <a href="https://cont.insure.or.kr" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="12"/><path d="m30 30 10 10"/><path d="M17 18a5 5 0 1 1 6 4.9V25M21 29h.1"/></svg></span><span><b>내 보험 조회하기</b><small>가입한 보험을 한 번에 확인</small></span></a>
     </div>
   </div></div>
 </section>
