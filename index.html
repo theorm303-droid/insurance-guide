@@ -20,36 +20,39 @@
 /* Layout: sticky two-row header (brand + category menu with mega dropdowns),
    content pages use a sidebar of sibling chapters next to a readable article column. */
 :root {
-  --bg: #f4f6f9;
+  --bg: #faf7f1;
   --surface: #ffffff;
   --ink: #17233a;
-  --sub: #5a6678;
-  --line: #dbe1ea;
+  --sub: #62605a;
+  --line: #e9e1d3;
   --brand: #1d3557;
   --brand-ink: #f3f6fb;
   --brand-sub: #b9c8dc;
-  --accent: #1d8578;
+  --accent: #1f3a66;
   --accent-ink: #ffffff;
-  --accent-soft: #e2f2ef;
-  --key-soft: #e9eff8;
-  --key-line: #c6d4e8;
+  --accent-soft: #f3ecdf;
+  --key-soft: #f6f0e5;
+  --key-line: #e4d6bc;
   --warn: #bd4b2b;
   --warn-soft: #fbebe5;
-  --gold: #8c6a10;
-  --gold-soft: #faf3df;
-  --gold-line: #d9b44a;
+  --gold: #8a6512;
+  --gold-soft: #fbf4e4;
+  --gold-line: #f07c2a;
   --summary-bg: #1d3557;
   --summary-fg: #edf2f9;
   --summary-accent: #e9c46a;
   --hl: #fff0c4;
-  --row: #f5f7fa;
-  --track: #e6ebf2;
-  --fill-a: #1d8578;
+  --row: #fbf8f2;
+  --track: #eee6d8;
+  --fill-a: #1f3a66;
   --fill-o: #d9694a;
   --fill-n: #3a5a86;
-  --shadow: 0 10px 30px rgba(23, 35, 58, .12);
+  --shadow: 0 12px 32px rgba(60, 45, 20, .10);
   --kakao: #fee500;
   --kakao-ink: #191600;
+  --head-bg: #fdfbf7; --head-ink: #17233a; --head-sub: #6b6458; --head-line: #ece4d6;
+  --cta-bg: #cc5014; --cta-ink: #ffffff; --pt: #f07c2a; --pt-soft: #fff1e6;
+  --h3-bg1: #fdfaf4; --h3-bg2: #f3eadb; --h3-card: #f1e9dc; --h3-wave: #f07c2a;
   --field: #ffffff;
 
   --f-display: 'Noto Serif KR', 'Nanum Myeongjo', 'Batang', serif;
@@ -76,6 +79,9 @@
     --hl: #3b3317; --row: #1b2637; --track: #243145;
     --fill-a: #4fc0b1; --fill-o: #ec8f72; --fill-n: #7398ca;
     --shadow: 0 10px 30px rgba(0, 0, 0, .45);
+    --head-bg: #142238; --head-ink: #e8eef7; --head-sub: #93a6c2; --head-line: rgba(255,255,255,.12);
+    --cta-bg: #f08a4b; --cta-ink: #1a0d04; --pt: #f08a4b; --pt-soft: #2e1d12;
+    --h3-bg1: #111b2b; --h3-bg2: #16243a; --h3-card: #1b2a40; --h3-wave: #8a4a22;
     --field: #0f1824;
     color-scheme: dark;
   }
@@ -90,7 +96,10 @@
   --hl: #3b3317; --row: #1b2637; --track: #243145;
   --fill-a: #4fc0b1; --fill-o: #ec8f72; --fill-n: #7398ca;
   --shadow: 0 10px 30px rgba(0, 0, 0, .45);
-  --field: #0f1824;
+  --head-bg: #142238; --head-ink: #e8eef7; --head-sub: #93a6c2; --head-line: rgba(255,255,255,.12);
+    --cta-bg: #f08a4b; --cta-ink: #1a0d04; --pt: #f08a4b; --pt-soft: #2e1d12;
+    --h3-bg1: #111b2b; --h3-bg2: #16243a; --h3-card: #1b2a40; --h3-wave: #8a4a22;
+    --field: #0f1824;
   color-scheme: dark;
 }
 
@@ -822,14 +831,217 @@ main.page[hidden]{display:none!important}
 /* 휴대폰에서도 옆으로 밀지 않는 표 (부록 E) */
 .tbl table.fit, .tbl table.fit.compact { min-width: 0; }
 .tbl table.fit td { word-break: keep-all; overflow-wrap: anywhere; }
+
+/* ================= 2026.11 홈 개편: 크림·남색·금색 ================= */
+.site-head { background: var(--head-bg); color: var(--head-ink); box-shadow: 0 1px 0 var(--head-line); }
+.logo { color: var(--head-ink); align-items: center; }
+.logo svg { width: 30px; height: 30px; flex: none; }
+.logo b { font-family: var(--f-body); font-weight: 800; letter-spacing: -.02em; }
+.logo .bar { width: 1px; height: 20px; background: var(--head-line); }
+.logo small { color: var(--head-sub); }
+.head-link { color: var(--head-ink); font-weight: 500; }
+.head-link:hover { color: var(--accent); }
+.head-cta { background: var(--cta-bg); color: var(--cta-ink); padding: 8px 18px; }
+.menu-btn { color: var(--head-ink); border-color: var(--head-line); }
+.gnb { border-top: 1px solid var(--head-line); }
+.gnb a.top-link { color: var(--head-ink); }
+.gnb a.top-link:hover, .gnb li.top:focus-within > a.top-link, .gnb a.top-link[aria-current="true"] { border-bottom-color: var(--gold-line); }
+
+.hero3 { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--h3-bg1), var(--h3-bg2)); }
+.hero3 .wave { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 46%; pointer-events: none; }
+.hero3 .wave path.fill { fill: var(--h3-bg1); opacity: .7; }
+.hero3 .wave path.line { fill: none; stroke: var(--h3-wave); stroke-width: 1.4; }
+.h3-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; align-items: center; padding-block: 56px 72px; }
+.h3-kicker { display: flex; align-items: center; gap: 14px; margin: 0 0 14px; font-weight: 700; color: var(--ink); font-size: 1.05rem; }
+.h3-kicker::before { content: ""; width: 44px; height: 2px; background: var(--gold-line); }
+.hero3 h1 { margin: 0; font-family: var(--f-body); font-weight: 800; color: var(--brand); font-size: clamp(2.1rem, 5vw, 3.5rem); line-height: 1.22; letter-spacing: -.035em; }
+:root[data-theme="dark"] .hero3 h1 { color: var(--ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hero3 h1 { color: var(--ink); } }
+.h3-sub { margin: 16px 0 26px; color: var(--sub); font-size: 1.12rem; line-height: 1.7; }
+.h3-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.h3-btns .btn { min-height: 52px; padding: 12px 24px; font-size: 1.02rem; border-radius: 10px; }
+.h3-btns .btn::after { content: "›"; font-size: 1.3em; line-height: 1; margin-left: 4px; }
+.h3-primary { background: var(--cta-bg); color: var(--cta-ink); }
+.h3-primary:hover { filter: brightness(1.08); }
+.h3-ghost { background: var(--surface); color: var(--ink); border: 1.5px solid var(--brand); }
+.h3-ghost:hover { background: var(--accent-soft); }
+.hero3 .search { margin-top: 22px; max-width: 520px; }
+.hero3 .search input { border: 1px solid var(--line); background: var(--surface); }
+.h3-card { display: grid; justify-items: center; gap: 10px; text-decoration: none; color: var(--ink);
+  background: var(--h3-card); border-radius: 28px; padding: 28px 24px 26px; box-shadow: var(--shadow); text-align: center; }
+.h3-card img { width: min(240px, 70%); height: auto; aspect-ratio: 330 / 341; object-fit: cover; border-radius: 20px; }
+.h3-card b { font-size: 1.55rem; font-weight: 800; color: var(--brand); letter-spacing: -.02em; margin-top: 6px; }
+:root[data-theme="dark"] .h3-card b { color: var(--ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .h3-card b { color: var(--ink); } }
+.h3-card i { width: 54px; height: 3px; background: var(--gold-line); border-radius: 2px; }
+.h3-card span { color: var(--sub); font-size: .95rem; }
+.h3-svc { position: relative; z-index: 2; margin-top: -40px; }
+.h3-svc .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.h3-svc a { display: flex; align-items: center; gap: 22px; padding: 26px 28px; background: var(--surface); border-radius: 16px;
+  box-shadow: var(--shadow); text-decoration: none; color: var(--brand); font-weight: 800; font-size: 1.3rem; letter-spacing: -.02em; }
+:root[data-theme="dark"] .h3-svc a { color: var(--ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .h3-svc a { color: var(--ink); } }
+.h3-svc a:hover { transform: translateY(-2px); }
+.h3-svc svg { width: 52px; height: 52px; flex: none; color: var(--brand); }
+:root[data-theme="dark"] .h3-svc svg { color: var(--gold); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .h3-svc svg { color: var(--gold); } }
+.h3-svc a .sep { width: 2px; align-self: stretch; margin-block: 6px; background: var(--gold-line); opacity: .7; }
+.pf-home { padding-top: 40px; }
+.pf-home .pf-band.nophoto { display: block; padding: 28px 32px; }
+.pf-home .pf-band.nophoto .pf-body { display: block; }
+@media (min-width: 900px) {
+  .pf-home .pf-band.nophoto .pf-body { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+  .pf-home .pf-band.nophoto .pf-body > .eyebrow, .pf-home .pf-band.nophoto .pf-body > h2,
+  .pf-home .pf-band.nophoto .pf-tags, .pf-home .pf-band.nophoto .pf-btns { grid-column: 1 / -1; }
+  .pf-home .pf-band.nophoto .pf-btns { max-width: 420px; }
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .pf-home { --h2-ink: #1d3557; --h2-line: #f07c2a; --h2-pill: #fffdf8; --h2-bg1: #fdfaf4; } }
+:root[data-theme="light"] .pf-home { --h2-ink: #1d3557; --h2-line: #f07c2a; --h2-pill: #fffdf8; --h2-bg1: #fdfaf4; }
+
+@media (max-width: 760px) {
+  .logo b { font-size: 1.02rem; }
+  .logo svg { width: 26px; height: 26px; }
+  .h3-grid { grid-template-columns: 1fr; gap: 24px; padding-block: 30px 56px; }
+  .h3-kicker { font-size: .98rem; margin-bottom: 10px; }
+  .h3-sub { font-size: 1rem; margin: 12px 0 20px; }
+  .h3-btns { flex-direction: column; }
+  .h3-btns .btn { width: 100%; }
+  .h3-card { grid-template-columns: 96px 1fr; justify-items: start; text-align: left; align-items: center; gap: 4px 16px; padding: 16px 18px; border-radius: 20px; }
+  .h3-card img { grid-row: span 3; width: 96px; border-radius: 50%; aspect-ratio: 1; object-position: 50% 20%; }
+  .h3-card b { font-size: 1.25rem; margin: 0; }
+  .h3-card i { width: 36px; }
+  .h3-svc { margin-top: -30px; }
+  .h3-svc .wrap { gap: 10px; }
+  .h3-svc a { flex-direction: column; gap: 8px; padding: 16px 6px; font-size: .95rem; text-align: center; border-radius: 14px; }
+  .h3-svc svg { width: 38px; height: 38px; }
+  .h3-svc a .sep { display: none; }
+  .pf-home { padding-top: 24px; }
+}
+
+/* ---- 홈 정리(2026.11): 분야 타일·상담 안내, 오렌지 포인트 ---- */
+.h3-kicker::before, .h3-card i { background: var(--pt); }
+.h3-svc a .sep { background: var(--pt); opacity: 1; }
+.h3-fields { padding-top: 56px; }
+.h3-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.h3-head h2 { margin: 0; font-family: var(--f-body); font-weight: 800; font-size: 1.6rem; letter-spacing: -.02em; }
+.h3-head h2::before { content: ""; display: inline-block; width: 4px; height: .9em; background: var(--pt); margin-right: 10px; vertical-align: -2px; border-radius: 2px; }
+.h3-head p { margin: 0; color: var(--sub); }
+.h3-fields .search { margin: 0 0 18px; }
+.h3-fields .search input { background: var(--surface); border: 1px solid var(--line); }
+.h3-tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.h3-tiles a { display: grid; gap: 2px; padding: 16px 16px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; text-decoration: none; color: var(--ink); }
+.h3-tiles a:hover { border-color: var(--pt); box-shadow: 0 0 0 1px var(--pt) inset; }
+.h3-tiles b { font-size: 1.02rem; font-weight: 700; }
+.h3-tiles small { color: var(--sub); font-size: .82rem; }
+.h3-cta { padding-top: 8px; }
+.h3-cta-in { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  background: var(--pt-soft); border: 1px solid var(--line); border-left: 5px solid var(--pt); border-radius: 16px; padding: 26px 30px; }
+.h3-cta-in h2 { margin: 0 0 4px; font-family: var(--f-body); font-weight: 800; font-size: 1.35rem; letter-spacing: -.02em; }
+.h3-cta-in p { margin: 0; color: var(--sub); }
+.h3-cta-btns { display: flex; gap: 10px; }
+.h3-cta-btns .btn { min-height: 50px; padding: 12px 22px; }
+.h3-cta-btns .h3-primary::after { content: none; }
+.pf-home { padding-top: 8px; }
+@media (max-width: 1000px) { .h3-tiles { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 760px) {
+  .h3-fields { padding-top: 36px; }
+  .h3-head h2 { font-size: 1.3rem; }
+  .h3-head p { font-size: .92rem; }
+  .h3-tiles { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .h3-tiles a { padding: 12px 8px; text-align: center; }
+  .h3-tiles b { font-size: .92rem; }
+  .h3-tiles small { font-size: .74rem; }
+  .h3-cta-in { padding: 20px 18px; }
+  .h3-cta-in h2 { font-size: 1.15rem; }
+  .h3-cta-btns { width: 100%; }
+  .h3-cta-btns .btn { flex: 1 1 0; }
+}
+
+/* 상단 분야 메뉴 줄 숨김, PC에서도 [목록열기] 사용 */
+.site-head .gnb { display: none !important; }
+.site-head .menu-btn { display: inline-block; min-height: 40px; padding: 6px 14px; }
+@media (min-width: 761px) {
+  .site-head .menu-btn { margin-left: 10px; }
+  .site-head.open .mnav { display: block; max-height: calc(100vh - 70px); overflow-y: auto; box-shadow: var(--shadow); }
+  .site-head .mnav .wrap { max-width: 760px; }
+  .site-head .mnav .mcontact { display: none; }
+}
+
+/* ================= 홈: 협회형 타일 화면 ================= */
+.head-row { gap: 10px; }
+.site-head .menu-btn { order: -1; font-size: 0; width: 44px; height: 44px; min-height: 0; padding: 0; border-radius: 50%;
+  border: 1.5px solid var(--head-line); background: var(--surface) no-repeat center / 22px
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2317233a' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M4 7h16M4 12h16M4 17h16'/%3E%3C/svg%3E"); margin: 0; }
+.site-head .menu-btn[aria-expanded="true"] { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2317233a' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E"); }
+.head-search { order: 10; display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--key-soft); color: var(--head-ink); flex: none; }
+.head-search svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+@media (max-width: 760px) {
+  .site-head .logo { flex: 1; justify-content: center; }
+  .site-head .head-row > .spacer { display: none; }
+}
+
+.hx { background: var(--bg); }
+.hx-bg { color: #fff; text-align: center;
+  background: radial-gradient(60% 80% at 85% 10%, rgba(240,124,42,.45), transparent 60%),
+              radial-gradient(50% 70% at 10% 90%, rgba(240,124,42,.22), transparent 60%),
+              linear-gradient(160deg, #1b2d4d 0%, #23395f 55%, #2c3f5e 100%);
+  padding: 64px 0 150px; }
+.hx-kicker { display: inline-block; margin: 0 0 14px; padding: 5px 14px; border-radius: 999px; background: rgba(255,255,255,.12); color: #ffd9bd; font-weight: 700; font-size: .95rem; }
+.hx-bg h1 { margin: 0; font-family: var(--f-body); font-weight: 800; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.3; letter-spacing: -.035em; color: #fff; }
+.hx-sub { margin: 14px 0 0; color: rgba(255,255,255,.82); font-size: 1.05rem; }
+.hx-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 920px; margin: -110px auto 0; position: relative; }
+.hx-t, .hx-quick a { text-decoration: none; }
+.hx-t { display: grid; justify-items: center; align-content: center; gap: 12px; padding: 24px 10px 22px; background: var(--surface); border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(20, 30, 50, .14); color: var(--ink); text-align: center; }
+.hx-t:hover { transform: translateY(-2px); }
+.hx-t .ic { display: grid; place-items: center; width: 92px; height: 92px; border-radius: 50%; background: var(--key-soft); color: var(--brand); overflow: hidden; }
+.hx-t .ic svg { width: 48px; height: 48px; }
+.hx-t .ic svg path:nth-child(n+2), .hx-t .ic svg circle { stroke: var(--pt); }
+.hx-t .ic img { width: 100%; height: 100%; object-fit: cover; }
+.hx-t b { font-size: 1.15rem; font-weight: 800; letter-spacing: -.02em; }
+.hx-quick { grid-column: span 2; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; gap: 4px; padding: 20px 10px;
+  background: var(--cta-bg); border-radius: 16px; box-shadow: 0 10px 28px rgba(20, 30, 50, .14); }
+.hx-quick a { display: grid; justify-items: center; gap: 10px; color: #fff; font-weight: 700; font-size: 1.02rem; line-height: 1.35; text-align: center; }
+.hx-quick .ic { display: grid; place-items: center; width: 70px; height: 70px; border-radius: 50%; background: #fff; color: var(--cta-bg); }
+.hx-quick .ic svg { width: 38px; height: 38px; }
+.hx-quick a:hover .ic { transform: scale(1.05); }
+:root[data-theme="dark"] .hx-quick a { color: var(--cta-ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hx-quick a { color: var(--cta-ink); } }
+
+/* 분야별 보험 정보: 가운데 제목 */
+.h3-fields { padding-top: 64px; }
+.h3-head { display: block; text-align: center; margin-bottom: 22px; }
+.h3-head h2::before { display: block; content: ""; width: 34px; height: 3px; margin: 0 auto 14px; background: var(--ink); }
+.h3-head h2 { font-size: 1.9rem; }
+.h3-head p { margin-top: 6px; }
+.h3-fields .search { max-width: 560px; margin: 0 auto 20px; }
+.h3-tiles a { text-align: center; }
+
+@media (max-width: 760px) {
+  .hx-bg { padding: 44px 0 128px; }
+  .hx-bg h1 { font-size: 1.85rem; }
+  .hx-sub { font-size: .95rem; padding-inline: 12px; }
+  .hx-tiles { gap: 9px; margin-top: -96px; }
+  .hx-t { padding: 16px 4px 14px; gap: 8px; border-radius: 14px; }
+  .hx-t .ic { width: 66px; height: 66px; }
+  .hx-t .ic svg { width: 36px; height: 36px; }
+  .hx-t b { font-size: .98rem; }
+  .hx-quick { padding: 14px 4px; }
+  .hx-quick a { font-size: .86rem; gap: 6px; }
+  .hx-quick .ic { width: 50px; height: 50px; }
+  .hx-quick .ic svg { width: 28px; height: 28px; }
+  .h3-fields { padding-top: 44px; }
+  .h3-head h2 { font-size: 1.5rem; }
+}
 </style></head><body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 <header class="site-head" id="top">
   <div class="wrap head-row">
-    <a class="logo" href="#home"><b>보험 보장 가이드</b><small>2026.10 개정</small></a>
+    <a class="logo" href="#home"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 5 7v8c0 7 4.8 12 11 14 6.2-2 11-7 11-14V7z" fill="none" stroke="#f07c2a" stroke-width="2.4" stroke-linejoin="round"/><path d="m11 16 3.5 3.5L21.5 12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="bar" aria-hidden="true"></span><b>보험이 쉬워지는 시간</b></a>
     <span class="spacer"></span>
     <a class="head-link" href="#profile">상담사 소개</a>
     <a class="head-cta" href="#contact">상담 신청</a>
+    <a class="head-search" href="#home" aria-label="보험 검색"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>
     <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="mnav">목록열기</button>
   </div>
   <nav class="gnb" aria-label="분야 메뉴"><div class="wrap"><ul><li class="top"><a class="top-link" href="#cat-basic">보험 기초</a><div class="mega"><div class="part-label">PART 1</div><a class="part-title" href="#cat-basic">보험 기초 다지기</a><ul><li><a href="#ch01"><span class="n">01</span>보험증권 읽는 법과 보장분석</a></li><li><a href="#ch02"><span class="n">02</span>갱신형 vs 비갱신형, 무엇이 유리할까</a></li><li><a href="#ch03"><span class="n">03</span>계약 전 알릴의무 — 표준체·간편체·간편실손</a></li></ul></div></li><li class="top"><a class="top-link" href="#cat-death">사망·장해</a><div class="mega"><div class="part-label">PART 2</div><a class="part-title" href="#cat-death">사망과 장해</a><ul><li><a href="#ch04"><span class="n">04</span>사망의 범주와 사망보험금</a></li><li><a href="#ch05"><span class="n">05</span>통계로 보는 사망 위험 — 한국인은 무엇으로 사망하는가</a></li><li><a href="#ch06"><span class="n">06</span>상해·질병 후유장해와 지급률</a></li></ul></div></li><li class="top"><a class="top-link" href="#cat-disease">암·뇌·심장</a><div class="mega"><div class="part-label">PART 3</div><a class="part-title" href="#cat-disease">3대 질병 — 암·뇌·심장</a><ul><li><a href="#ch07"><span class="n">07</span>CI보험 vs GI보험</a></li><li><a href="#ch08"><span class="n">08</span>암의 발생 원인과 통계</a></li><li><a href="#ch09"><span class="n">09</span>암의 검사·진단과 병기(TNM)</a></li><li><a href="#ch10"><span class="n">10</span>암 치료의 진화와 암보험 트렌드</a></li><li><a href="#ch11"><span class="n">11</span>수술의 분류 — 종수술 표 읽는 법</a></li><li><a href="#ch12"><span class="n">12</span>산정특례 제도</a></li><li><a href="#ch13"><span class="n">13</span>뇌혈관질환 — 진단·치료와 보장 범위</a></li><li><a href="#ch14"><span class="n">14</span>심장질환 — 보장 범위와 상병코드</a></li></ul><div class="part-label">PART 4</div><a class="part-title" href="#cat-disease">수술비</a><ul><li><a href="#ch15"><span class="n">15</span>수술 트렌드의 변화와 수술비 담보의 종류</a></li><li><a href="#ch16"><span class="n">16</span>통계로 보는 주요 수술 — 건수·진료비·입원일수</a></li></ul></div></li><li class="top"><a class="top-link" href="#cat-care">간병·치매</a><div class="mega"><div class="part-label">PART 5</div><a class="part-title" href="#cat-care">장기요양 · 치매 · 간병</a><ul><li><a href="#ch17"><span class="n">17</span>공적 장기요양보험과 노인성 질환</a></li><li><a href="#ch18"><span class="n">18</span>장기요양 등급과 비용, 치매 척도(CDR)</a></li><li><a href="#ch19"><span class="n">19</span>장기요양 이용 현황, 요양병원과 요양원, 간병보험</a></li></ul></div></li><li class="top"><a class="top-link" href="#cat-life">종신·연금</a><div class="mega"><div class="part-label">PART 6</div><a class="part-title" href="#cat-life">노후 준비 — 종신 · 연금 · 상속재원 · 변액</a><ul><li><a href="#ch20"><span class="n">20</span>종신보험으로 준비하는 노후 — 종류, 연금전환, 사망보험금 유동화</a></li><li><a href="#ch21"><span class="n">21</span>노후자금과 연금 3층 보장</a></li><li><a href="#ch22"><span class="n">22</span>세제적격 연금 — 연금저축과 IRP 세액공제</a></li><li><a href="#ch23"><span class="n">23</span>상속재원 마련 — 수익자 지정, 상속세, 증여 활용</a></li><li><a href="#ch24"><span class="n">24</span>변액보험 — 구조, 최저보증, 비용과 주의점</a></li></ul></div></li><li class="top"><a class="top-link" href="#cat-auto">자동차보험</a><div class="mega"><div class="part-label">PART 7</div><a class="part-title" href="#cat-auto">자동차보험 · 운전자보험</a><ul><li><a href="#ch25"><span class="n">25</span>자동차보험의 주요 담보와 부상등급</a></li><li><a href="#ch26"><span class="n">26</span>운전자보험 — 사고 후 세 가지 책임과 12대 중과실</a></li><li><a href="#ch27"><span class="n">27</span>운전자보험 변천사 — 2009년부터 2024년까지</a></li><li><a href="#ch28"><span class="n">28</span>2026년의 변화 — 경찰조사 단계와 변호사 현물급부</a></li></ul></div></li><li class="top"><a class="top-link" href="#cat-silson">실손보험</a><div class="mega"><div class="part-label">PART 10</div><a class="part-title" href="#cat-silson">실손의료보험 1~5세대</a><ul><li><a href="#ch32"><span class="n">32</span>의료실비 변천사 — 1세대부터 4세대까지</a></li><li><a href="#ch33"><span class="n">33</span>실손에서 보상하지 않는 사항</a></li><li><a href="#ch34"><span class="n">34</span>4세대 실손의 주요 특징 — 일반·유병자·노후</a></li><li><a href="#ch35"><span class="n">35</span>보험료 차등제와 구실손 vs 4세대 유불리</a></li><li><a href="#ch36"><span class="n">36</span>5세대 실손보험, 무엇이 달라지나</a></li><li><a href="#ch37"><span class="n">37</span>5세대 전환 손익 계산 — BEP로 판단하기</a></li><li><a href="#ch38"><span class="n">38</span>5세대 전환 평가 주요 포인트</a></li></ul></div></li><li class="top"><a class="top-link" href="#cat-dental">치아</a><div class="mega"><div class="part-label">PART 8</div><a class="part-title" href="#cat-dental">치아보험</a><ul><li><a href="#ch29"><span class="n">29</span>치아보험 — 급여·비급여 구조와 가입 전 주의사항</a></li><li><a href="#ch30"><span class="n">30</span>치과 치료의 종류와 비용</a></li></ul></div></li><li class="top"><a class="top-link" href="#cat-fire">화재</a><div class="mega"><div class="part-label">PART 9</div><a class="part-title" href="#cat-fire">화재보험</a><ul><li><a href="#ch31"><span class="n">31</span>주택화재보험과 실화책임법</a></li></ul></div></li><li class="top right"><a class="top-link" href="#cat-gov">정부지원</a><div class="mega"><div class="part-label">PART 11</div><a class="part-title" href="#cat-gov">몰라서 못 받는 정부 지원제도</a><ul><li><a href="#ch39"><span class="n">39</span>본인부담상한제와 재난적 의료비 지원</a></li><li><a href="#ch40"><span class="n">40</span>산정특례·노인장기요양·임플란트와 틀니 지원</a></li><li><a href="#ch41"><span class="n">41</span>보험금 청구 실전 가이드</a></li></ul></div></li><li class="top right"><a class="top-link" href="#cat-lib">자료실</a><div class="mega"><div class="part-label">APPENDIX</div><a class="part-title" href="#cat-lib">실무 자료 모음</a><ul><li><a href="#appA"><span class="n">A</span>질병분류코드(KCD) 읽는 법과 실무 분류</a></li><li><a href="#appB"><span class="n">B</span>보험 실무 질병코드 요약표</a></li><li><a href="#appC"><span class="n">C</span>1~5종 수술분류표 — 종별 수술 목록</a></li><li><a href="#appD"><span class="n">D</span>보험 용어 사전</a></li><li><a href="#appE"><span class="n">E</span>우리 가족 보장분석 워크시트</a></li></ul></div></li></ul></div></nav>
@@ -5916,60 +6128,38 @@ main.page[hidden]{display:none!important}
     <p class="small">입력한 정보는 이 화면에서만 쓰이고 사이트에 저장되지 않습니다. 카카오톡으로 보낼 때만 상담사에게 전달됩니다.</p>
   </section>
 </div></div></main>
-<main class="page" id="pg-home" data-title="보험 보장 가이드" hidden><section class="hero2">
-  <div class="wrap hero2-in">
-    <p class="h2-top">어려운 보험을 쉽게, 내 보험 점검부터</p>
-    <div class="h2-leaf" aria-hidden="true"><span></span><svg viewBox="0 0 40 20"><path d="M20 18C14 18 6 14 4 4c8 0 14 4 16 14zM20 18c6 0 14-4 16-14-8 0-14 4-16 14z"/></svg><span></span></div>
-    <h1>보험이 쉬워지는 시간</h1>
-    <p class="h2-name">보험친구 박혜경</p>
-    <nav class="h2-pills" aria-label="주요 분야">
-      <a href="#cat-silson">실손</a><a href="#cat-disease">건강</a><a href="#cat-care">간병</a><a href="#cat-life">노후 준비</a><a href="#ch41">보험금 청구</a>
-    </nav>
-    <div class="search" role="search">
+<main class="page" id="pg-home" data-title="보험 보장 가이드" hidden><section class="hx">
+  <div class="hx-bg"><div class="wrap hx-copy">
+    <p class="hx-kicker">보험친구 박혜경</p>
+    <h1>내 보험, 제대로<br>준비되어 있을까요?</h1>
+    <p class="hx-sub">어려운 보장 내용부터 보험금 청구까지 알기 쉽게 안내합니다.</p>
+  </div></div>
+  <div class="wrap"><div class="hx-tiles">
+    <a class="hx-t" href="#ch01"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="8" width="28" height="34" rx="4"/><path d="M18 8V5h12v3"/><path d="m16 20 3 3 5-5M27 21h6M16 32l3 3 5-5M27 33h6"/></svg></span><b>내 보험 점검</b></a>
+    <a class="hx-t" href="#cat-disease"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5 9 10v11c0 10 6.5 17 15 20 8.5-3 15-10 15-20V10z"/><path d="M24 16v14M17 23h14"/></svg></span><b>보장 내용 안내</b></a>
+    <a class="hx-t" href="#ch41"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M33 21V9a3 3 0 0 0-3-3H11a3 3 0 0 0-3 3v28a3 3 0 0 0 3 3h12"/><path d="M14 14h13M14 21h13M14 28h7"/><circle cx="34" cy="34" r="9"/><path d="M30 31l2 6 2-4 2 4 2-6M29.5 34h9"/></svg></span><b>보험금 청구 안내</b></a>
+    <a class="hx-t hx-pf" href="#profile"><span class="ic"><img src="assets/profile-face.jpg" alt="" width="96" height="96"></span><b>상담사 소개</b></a>
+    <div class="hx-quick">
+      <a href="https://pf.kakao.com/_AGxlFX/chat" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8C14 8 7 14 7 21.5c0 4.8 3 8.9 7.6 11.2L13 40l7.5-5c1.1.2 2.3.3 3.5.3 10 0 17-6 17-13.5S34 8 24 8z"/><path d="M17 21h.1M24 21h.1M31 21h.1"/></svg></span>카톡<br>상담</a>
+      <a href="#contact"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="7" width="26" height="34" rx="3"/><path d="M15 15h14M15 22h14M15 29h7"/><path d="m40 22-11 11-4 1 1-4 11-11z"/></svg></span>상담<br>신청</a>
+      <a href="https://cont.insure.or.kr" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="12"/><path d="m30 30 10 10"/><path d="M17 18a5 5 0 1 1 6 4.9V25M21 29h.1"/></svg></span>내 보험<br>조회하기</a>
+    </div>
+  </div></div>
+</section>
+<section class="section h3-fields"><div class="wrap">
+  <div class="h3-head"><h2>분야별 보험 정보</h2><p>궁금한 분야를 고르거나 검색해 보세요.</p></div>
+  <div class="search" role="search">
       <label for="q" class="skip">주제 검색</label>
       <input id="q" type="search" data-search placeholder="궁금한 보험 검색 (예: 실손, 치매)" autocomplete="off">
       <div class="results" hidden></div>
     </div>
-  </div>
-  <div class="h2-scene" role="img" aria-label="나무 집 모형과 책, 찻잔이 놓인 창가"></div>
-</section>
-<section class="section pf-home"><div class="wrap"><div class="pf-band">
-  <a class="pf-photo" href="#profile"><picture><source media="(max-width: 760px)" srcset="assets/profile-face.jpg"><img src="assets/profile-portrait.jpg" alt="보험친구 박혜경 사진" width="330" height="341" loading="lazy"></picture></a>
-  <div class="pf-body">
-    <div class="eyebrow">상담사 소개</div>
-    <h2>안녕하세요, <span class="nb">보험이 쉬워지는 시간</span><br><span class="nb">보험친구 <span>박혜경</span>입니다</span></h2>
-    <p class="pf-story">공방에서 아로마테라피·천연비누 강사로<br>10년 넘게 사람들을 만나 왔고,<br>지금은 <b>뉴니케GA</b>에서<br>보험설계사로 새 출발했습니다.</p>
-    <p class="pf-hello">보험이 어렵게 느껴지셨다면<br>여기서 하나씩 쉽게 풀어 드릴게요.<br><b>내 보험 점검·실손·간병</b>, 편하게 물어보세요.</p>
-    <ul class="pf-tags"><li><a href="#ch01">내 보험 점검</a></li><li><a href="#cat-silson">실손보험</a></li><li><a href="#cat-disease">암·뇌·심장</a></li><li><a href="#cat-care">부모님 간병·치매</a></li><li><a href="#profile">요양보호사 자격 취득</a></li></ul>
-    <div class="pf-btns"><a class="btn btn-kakao" href="https://pf.kakao.com/_AGxlFX/chat" target="_blank" rel="noopener">카카오톡 상담</a><a class="btn btn-ghost" href="#profile">소개 더 보기</a></div>
-  </div>
+  <nav class="h3-tiles" aria-label="보험 분야"><a href="#cat-basic"><b>보험 기초</b><small>3개 주제</small></a><a href="#cat-death"><b>사망·장해</b><small>3개 주제</small></a><a href="#cat-disease"><b>암·뇌·심장</b><small>10개 주제</small></a><a href="#cat-care"><b>간병·치매</b><small>3개 주제</small></a><a href="#cat-life"><b>종신·연금</b><small>5개 주제</small></a><a href="#cat-auto"><b>자동차보험</b><small>4개 주제</small></a><a href="#cat-silson"><b>실손보험</b><small>7개 주제</small></a><a href="#cat-dental"><b>치아</b><small>2개 주제</small></a><a href="#cat-fire"><b>화재</b><small>1개 주제</small></a><a href="#cat-gov"><b>정부지원</b><small>3개 주제</small></a><a href="#cat-lib"><b>자료실</b><small>5개 주제</small></a></nav>
+</div></section>
+<section class="section h3-cta"><div class="wrap"><div class="h3-cta-in">
+  <div><h2>보험증권 사진 한 장이면 충분합니다</h2><p>부족한 보장과 겹치는 보장을 쉽게 정리해 드립니다. 가입 권유 없이 점검부터 시작합니다.</p></div>
+  <div class="h3-cta-btns"><a class="btn btn-kakao" href="https://pf.kakao.com/_AGxlFX/chat" target="_blank" rel="noopener">카카오톡 상담</a><a class="btn h3-primary" href="#contact">상담 신청</a></div>
 </div></div></section>
-<section class="section tl-sec"><div class="wrap"><details class="tl" id="toc-list">
-  <summary class="tl-btn"><span>목록열기</span><small>11개 분야 · 46개 주제</small></summary>
-  <div class="tl-body">
-    <label class="skip" for="tl-q">목록에서 찾기</label>
-    <input id="tl-q" class="tl-search" type="search" data-filter placeholder="목록에서 찾기 (예: 실손, 치매, 운전자)" autocomplete="off">
-    <p class="tl-none" hidden>찾는 주제가 없어요. 다른 말로 검색해 보세요.</p>
-    <details class="tl-group"><summary><b>보험 기초</b><small>3</small></summary><ul><li class="tl-item"><a href="#ch01"><span class="n">01</span>보험증권 읽는 법과 보장분석</a></li><li class="tl-item"><a href="#ch02"><span class="n">02</span>갱신형 vs 비갱신형, 무엇이 유리할까</a></li><li class="tl-item"><a href="#ch03"><span class="n">03</span>계약 전 알릴의무 — 표준체·간편체·간편실손</a></li></ul><a class="tl-all" href="#cat-basic">보험 기초 전체 보기 →</a></details><details class="tl-group"><summary><b>사망·장해</b><small>3</small></summary><ul><li class="tl-item"><a href="#ch04"><span class="n">04</span>사망의 범주와 사망보험금</a></li><li class="tl-item"><a href="#ch05"><span class="n">05</span>통계로 보는 사망 위험 — 한국인은 무엇으로 사망하는가</a></li><li class="tl-item"><a href="#ch06"><span class="n">06</span>상해·질병 후유장해와 지급률</a></li></ul><a class="tl-all" href="#cat-death">사망·장해 전체 보기 →</a></details><details class="tl-group"><summary><b>암·뇌·심장</b><small>10</small></summary><ul><li class="tl-item"><a href="#ch07"><span class="n">07</span>CI보험 vs GI보험</a></li><li class="tl-item"><a href="#ch08"><span class="n">08</span>암의 발생 원인과 통계</a></li><li class="tl-item"><a href="#ch09"><span class="n">09</span>암의 검사·진단과 병기(TNM)</a></li><li class="tl-item"><a href="#ch10"><span class="n">10</span>암 치료의 진화와 암보험 트렌드</a></li><li class="tl-item"><a href="#ch11"><span class="n">11</span>수술의 분류 — 종수술 표 읽는 법</a></li><li class="tl-item"><a href="#ch12"><span class="n">12</span>산정특례 제도</a></li><li class="tl-item"><a href="#ch13"><span class="n">13</span>뇌혈관질환 — 진단·치료와 보장 범위</a></li><li class="tl-item"><a href="#ch14"><span class="n">14</span>심장질환 — 보장 범위와 상병코드</a></li><li class="tl-item"><a href="#ch15"><span class="n">15</span>수술 트렌드의 변화와 수술비 담보의 종류</a></li><li class="tl-item"><a href="#ch16"><span class="n">16</span>통계로 보는 주요 수술 — 건수·진료비·입원일수</a></li></ul><a class="tl-all" href="#cat-disease">암·뇌·심장 전체 보기 →</a></details><details class="tl-group"><summary><b>간병·치매</b><small>3</small></summary><ul><li class="tl-item"><a href="#ch17"><span class="n">17</span>공적 장기요양보험과 노인성 질환</a></li><li class="tl-item"><a href="#ch18"><span class="n">18</span>장기요양 등급과 비용, 치매 척도(CDR)</a></li><li class="tl-item"><a href="#ch19"><span class="n">19</span>장기요양 이용 현황, 요양병원과 요양원, 간병보험</a></li></ul><a class="tl-all" href="#cat-care">간병·치매 전체 보기 →</a></details><details class="tl-group"><summary><b>종신·연금</b><small>5</small></summary><ul><li class="tl-item"><a href="#ch20"><span class="n">20</span>종신보험으로 준비하는 노후 — 종류, 연금전환, 사망보험금 유동화</a></li><li class="tl-item"><a href="#ch21"><span class="n">21</span>노후자금과 연금 3층 보장</a></li><li class="tl-item"><a href="#ch22"><span class="n">22</span>세제적격 연금 — 연금저축과 IRP 세액공제</a></li><li class="tl-item"><a href="#ch23"><span class="n">23</span>상속재원 마련 — 수익자 지정, 상속세, 증여 활용</a></li><li class="tl-item"><a href="#ch24"><span class="n">24</span>변액보험 — 구조, 최저보증, 비용과 주의점</a></li></ul><a class="tl-all" href="#cat-life">종신·연금 전체 보기 →</a></details><details class="tl-group"><summary><b>자동차보험</b><small>4</small></summary><ul><li class="tl-item"><a href="#ch25"><span class="n">25</span>자동차보험의 주요 담보와 부상등급</a></li><li class="tl-item"><a href="#ch26"><span class="n">26</span>운전자보험 — 사고 후 세 가지 책임과 12대 중과실</a></li><li class="tl-item"><a href="#ch27"><span class="n">27</span>운전자보험 변천사 — 2009년부터 2024년까지</a></li><li class="tl-item"><a href="#ch28"><span class="n">28</span>2026년의 변화 — 경찰조사 단계와 변호사 현물급부</a></li></ul><a class="tl-all" href="#cat-auto">자동차보험 전체 보기 →</a></details><details class="tl-group"><summary><b>실손보험</b><small>7</small></summary><ul><li class="tl-item"><a href="#ch32"><span class="n">32</span>의료실비 변천사 — 1세대부터 4세대까지</a></li><li class="tl-item"><a href="#ch33"><span class="n">33</span>실손에서 보상하지 않는 사항</a></li><li class="tl-item"><a href="#ch34"><span class="n">34</span>4세대 실손의 주요 특징 — 일반·유병자·노후</a></li><li class="tl-item"><a href="#ch35"><span class="n">35</span>보험료 차등제와 구실손 vs 4세대 유불리</a></li><li class="tl-item"><a href="#ch36"><span class="n">36</span>5세대 실손보험, 무엇이 달라지나</a></li><li class="tl-item"><a href="#ch37"><span class="n">37</span>5세대 전환 손익 계산 — BEP로 판단하기</a></li><li class="tl-item"><a href="#ch38"><span class="n">38</span>5세대 전환 평가 주요 포인트</a></li></ul><a class="tl-all" href="#cat-silson">실손보험 전체 보기 →</a></details><details class="tl-group"><summary><b>치아</b><small>2</small></summary><ul><li class="tl-item"><a href="#ch29"><span class="n">29</span>치아보험 — 급여·비급여 구조와 가입 전 주의사항</a></li><li class="tl-item"><a href="#ch30"><span class="n">30</span>치과 치료의 종류와 비용</a></li></ul><a class="tl-all" href="#cat-dental">치아 전체 보기 →</a></details><details class="tl-group"><summary><b>화재</b><small>1</small></summary><ul><li class="tl-item"><a href="#ch31"><span class="n">31</span>주택화재보험과 실화책임법</a></li></ul><a class="tl-all" href="#cat-fire">화재 전체 보기 →</a></details><details class="tl-group"><summary><b>정부지원</b><small>3</small></summary><ul><li class="tl-item"><a href="#ch39"><span class="n">39</span>본인부담상한제와 재난적 의료비 지원</a></li><li class="tl-item"><a href="#ch40"><span class="n">40</span>산정특례·노인장기요양·임플란트와 틀니 지원</a></li><li class="tl-item"><a href="#ch41"><span class="n">41</span>보험금 청구 실전 가이드</a></li></ul><a class="tl-all" href="#cat-gov">정부지원 전체 보기 →</a></details><details class="tl-group"><summary><b>자료실</b><small>5</small></summary><ul><li class="tl-item"><a href="#appA"><span class="n">A</span>질병분류코드(KCD) 읽는 법과 실무 분류</a></li><li class="tl-item"><a href="#appB"><span class="n">B</span>보험 실무 질병코드 요약표</a></li><li class="tl-item"><a href="#appC"><span class="n">C</span>1~5종 수술분류표 — 종별 수술 목록</a></li><li class="tl-item"><a href="#appD"><span class="n">D</span>보험 용어 사전</a></li><li class="tl-item"><a href="#appE"><span class="n">E</span>우리 가족 보장분석 워크시트</a></li></ul><a class="tl-all" href="#cat-lib">자료실 전체 보기 →</a></details>
-  </div>
-</details></div></section>
-<section class="section home-cats" style="padding-top:0"><div class="wrap">
-  <div class="section-head"><h2>분야별 안내</h2><p>상단 메뉴와 같은 11개 분야입니다.</p></div>
-  <div class="cats"><div class="cat"><span class="count">3 TOPICS</span><h3><a href="#cat-basic">보험 기초</a></h3><p class="desc">증권 읽는 법, 보장분석, 갱신형과 비갱신형, 계약 전 알릴의무까지 모든 보험 점검의 출발점입니다.</p><ul><li><a href="#ch01"><span class="n">01</span>보험증권 읽는 법과 보장분석</a></li><li><a href="#ch02"><span class="n">02</span>갱신형 vs 비갱신형, 무엇이 유리할까</a></li><li><a href="#ch03"><span class="n">03</span>계약 전 알릴의무 — 표준체·간편체·간편실손</a></li></ul><a class="more" href="#cat-basic">보험 기초 전체 3개 주제 보기 →</a></div><div class="cat"><span class="count">3 TOPICS</span><h3><a href="#cat-death">사망·장해</a></h3><p class="desc">사망보장의 범주와 필요 금액, 사망원인 통계, 신체 부위별 후유장해 지급률을 정리했습니다.</p><ul><li><a href="#ch04"><span class="n">04</span>사망의 범주와 사망보험금</a></li><li><a href="#ch05"><span class="n">05</span>통계로 보는 사망 위험 — 한국인은 무엇으로 사망하는가</a></li><li><a href="#ch06"><span class="n">06</span>상해·질병 후유장해와 지급률</a></li></ul><a class="more" href="#cat-death">사망·장해 전체 3개 주제 보기 →</a></div><div class="cat"><span class="count">10 TOPICS</span><h3><a href="#cat-disease">암·뇌·심장</a></h3><p class="desc">3대 질병의 통계·진단·치료와 보장 범위, 산정특례, 그리고 수술비 담보 네 종류를 비교합니다.</p><ul><li><a href="#ch07"><span class="n">07</span>CI보험 vs GI보험</a></li><li><a href="#ch08"><span class="n">08</span>암의 발생 원인과 통계</a></li><li><a href="#ch09"><span class="n">09</span>암의 검사·진단과 병기(TNM)</a></li><li><a href="#ch10"><span class="n">10</span>암 치료의 진화와 암보험 트렌드</a></li><li><a href="#ch11"><span class="n">11</span>수술의 분류 — 종수술 표 읽는 법</a></li></ul><a class="more" href="#cat-disease">암·뇌·심장 전체 10개 주제 보기 →</a></div><div class="cat"><span class="count">3 TOPICS</span><h3><a href="#cat-care">간병·치매</a></h3><p class="desc">노인장기요양보험의 등급과 비용, 치매 척도(CDR), 요양병원과 요양원, 간병보험을 묶었습니다.</p><ul><li><a href="#ch17"><span class="n">17</span>공적 장기요양보험과 노인성 질환</a></li><li><a href="#ch18"><span class="n">18</span>장기요양 등급과 비용, 치매 척도(CDR)</a></li><li><a href="#ch19"><span class="n">19</span>장기요양 이용 현황, 요양병원과 요양원, 간병보험</a></li></ul><a class="more" href="#cat-care">간병·치매 전체 3개 주제 보기 →</a></div><div class="cat"><span class="count">5 TOPICS</span><h3><a href="#cat-life">종신·연금</a></h3><p class="desc">종신보험의 연금전환과 사망보험금 유동화, 연금 3층과 세액공제, 상속세와 증여, 변액보험을 다룹니다.</p><ul><li><a href="#ch20"><span class="n">20</span>종신보험으로 준비하는 노후 — 종류, 연금전환, 사망보험금 유동화</a></li><li><a href="#ch21"><span class="n">21</span>노후자금과 연금 3층 보장</a></li><li><a href="#ch22"><span class="n">22</span>세제적격 연금 — 연금저축과 IRP 세액공제</a></li><li><a href="#ch23"><span class="n">23</span>상속재원 마련 — 수익자 지정, 상속세, 증여 활용</a></li><li><a href="#ch24"><span class="n">24</span>변액보험 — 구조, 최저보증, 비용과 주의점</a></li></ul><a class="more" href="#cat-life">종신·연금 전체 5개 주제 보기 →</a></div><div class="cat"><span class="count">4 TOPICS</span><h3><a href="#cat-auto">자동차보험</a></h3><p class="desc">자동차보험 담보와 부상등급, 12대 중과실과 형사책임, 운전자보험 변천사와 2026년 변호사 현물급부까지.</p><ul><li><a href="#ch25"><span class="n">25</span>자동차보험의 주요 담보와 부상등급</a></li><li><a href="#ch26"><span class="n">26</span>운전자보험 — 사고 후 세 가지 책임과 12대 중과실</a></li><li><a href="#ch27"><span class="n">27</span>운전자보험 변천사 — 2009년부터 2024년까지</a></li><li><a href="#ch28"><span class="n">28</span>2026년의 변화 — 경찰조사 단계와 변호사 현물급부</a></li></ul><a class="more" href="#cat-auto">자동차보험 전체 4개 주제 보기 →</a></div><div class="cat"><span class="count">7 TOPICS</span><h3><a href="#cat-silson">실손보험</a></h3><p class="desc">세대별 보장 차이, 보상하지 않는 사항, 4세대 차등제, 5세대 전환 손익분기점 계산법을 정리했습니다.</p><ul><li><a href="#ch32"><span class="n">32</span>의료실비 변천사 — 1세대부터 4세대까지</a></li><li><a href="#ch33"><span class="n">33</span>실손에서 보상하지 않는 사항</a></li><li><a href="#ch34"><span class="n">34</span>4세대 실손의 주요 특징 — 일반·유병자·노후</a></li><li><a href="#ch35"><span class="n">35</span>보험료 차등제와 구실손 vs 4세대 유불리</a></li><li><a href="#ch36"><span class="n">36</span>5세대 실손보험, 무엇이 달라지나</a></li></ul><a class="more" href="#cat-silson">실손보험 전체 7개 주제 보기 →</a></div><div class="cat"><span class="count">2 TOPICS</span><h3><a href="#cat-dental">치아</a></h3><p class="desc">치과 치료비 구조와 치아보험 가입 요령을 설명합니다.</p><ul><li><a href="#ch29"><span class="n">29</span>치아보험 — 급여·비급여 구조와 가입 전 주의사항</a></li><li><a href="#ch30"><span class="n">30</span>치과 치료의 종류와 비용</a></li></ul><a class="more" href="#cat-dental">치아 전체 2개 주제 보기 →</a></div><div class="cat"><span class="count">1 TOPICS</span><h3><a href="#cat-fire">화재</a></h3><p class="desc">실화책임법과 주택화재보험을 설명합니다.</p><ul><li><a href="#ch31"><span class="n">31</span>주택화재보험과 실화책임법</a></li></ul><a class="more" href="#cat-fire">화재 전체 1개 주제 보기 →</a></div><div class="cat"><span class="count">3 TOPICS</span><h3><a href="#cat-gov">정부지원</a></h3><p class="desc">본인부담상한제, 재난적 의료비, 산정특례, 임플란트·틀니 지원과 보험금 청구 요령입니다.</p><ul><li><a href="#ch39"><span class="n">39</span>본인부담상한제와 재난적 의료비 지원</a></li><li><a href="#ch40"><span class="n">40</span>산정특례·노인장기요양·임플란트와 틀니 지원</a></li><li><a href="#ch41"><span class="n">41</span>보험금 청구 실전 가이드</a></li></ul><a class="more" href="#cat-gov">정부지원 전체 3개 주제 보기 →</a></div><div class="cat"><span class="count">5 TOPICS</span><h3><a href="#cat-lib">자료실</a></h3><p class="desc">질병분류코드(KCD) 읽는 법과 코드표, 1~5종 수술분류표, 보험 용어 사전, 보장분석 워크시트를 모았습니다.</p><ul><li><a href="#appA"><span class="n">A</span>질병분류코드(KCD) 읽는 법과 실무 분류</a></li><li><a href="#appB"><span class="n">B</span>보험 실무 질병코드 요약표</a></li><li><a href="#appC"><span class="n">C</span>1~5종 수술분류표 — 종별 수술 목록</a></li><li><a href="#appD"><span class="n">D</span>보험 용어 사전</a></li><li><a href="#appE"><span class="n">E</span>우리 가족 보장분석 워크시트</a></li></ul><a class="more" href="#cat-lib">자료실 전체 5개 주제 보기 →</a></div></div>
-</div></section>
-<section class="section" style="padding-top:0"><div class="wrap">
-  <div class="section-head"><h2>자주 찾는 주제</h2></div>
-  <div class="chips"><a href="#ch37">5세대 실손 전환, 손해일까? <code>BEP</code></a><a href="#ch28">운전자보험 변호사 현물급부 <code>2026</code></a><a href="#ch23">상속세 얼마나 나올까 <code>20억 예시</code></a><a href="#ch20">종신보험 연금전환·유동화 <code>65세+</code></a><a href="#ch18">치매 CDR 척도와 등급 <code>CDR 0~5</code></a><a href="#ch13">뇌혈관 진단비 보장 범위 <code>I60~I69</code></a><a href="#ch12">산정특례 본인부담 5% <code>5%</code></a><a href="#ch03">알릴의무 3·N·5 간편심사 <code>3·N·5</code></a><a href="#ch39">본인부담상한제 환급 <code>3년</code></a><a href="#appB">질병코드 요약표 <code>KCD-8</code></a><a href="#appC">1~5종 수술분류표 <code>1~5종</code></a></div>
-</div></section>
-<section class="section home-howto" style="padding-top:0"><div class="wrap">
-  <div class="section-head"><h2>이렇게 활용하세요</h2></div>
-  <div class="howto">
-    <div><b>보험증권 모으기</b><p>'내보험다보여'에서 가족 전체 가입 내역을 조회합니다.</p></div>
-    <div><b>분야별 점검</b><p>메뉴에서 관심 분야를 골라 각 장 끝의 체크리스트를 확인합니다.</p></div>
-    <div><b>워크시트 정리</b><p><a href="#appE">보장분석 워크시트</a>에 위험별 보장 금액을 채웁니다.</p></div>
-    <div><b>1년마다 다시</b><p>갱신·만기·가족 변화가 있을 때마다 다시 점검합니다.</p></div>
-  </div>
-</div></section></main>
+</main>
 <main class="page" id="pg-profile" data-title="상담사 소개 | 보험 보장 가이드" hidden><div class="pf-hero"><div class="wrap">
   <nav class="crumb" aria-label="현재 위치"><a href="#home">홈</a><span class="sep">/</span><span>상담사 소개</span></nav>
   <div class="pf-hero-grid">
@@ -6234,6 +6424,15 @@ main.page[hidden]{display:none!important}
     var h=document.querySelector('.site-head');if(h){h.classList.remove('open');document.body.classList.remove('menu-open');}
   }
   window.addEventListener('hashchange',show);show();
+})();
+</script>
+<script>
+(function () {
+  var s = document.querySelector('.head-search');
+  if (!s) return;
+  s.addEventListener('click', function () {
+    setTimeout(function () { var q = document.getElementById('q'); if (q) { q.scrollIntoView({ block: 'center' }); q.focus(); } }, 120);
+  });
 })();
 </script>
 </body></html>
