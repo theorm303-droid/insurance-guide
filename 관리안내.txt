@@ -5,7 +5,7 @@
 
 [이 폴더에 있는 것 = 공개되는 것]
   index.html     홈페이지 전체 (한 파일. 모든 글이 이 안에 #ch01, #appC 같은 주소로 들어 있음)
-  assets\        프로필 사진(profile-face/portrait), QR(qr-kakao, qr-blog), 링크 미리보기 그림(og-card-v2.jpg, 원본 디자인은 ..홈페이지_원본og_card.html)
+  assets\        프로필 사진(profile-face/portrait), QR(qr-kakao, qr-blog), 링크 미리보기 그림(og-card-v2.jpg, 원본 디자인은 ..\홈페이지_원본\og_card.html)
   404.html       없는 주소 안내. 예전 주소(ch28.html 등)는 새 홈페이지의 같은 글로 보냄
   CNAME          한글 도메인 보험친구.kr 연결 (지우면 안 됨)
   관리안내.txt   이 파일
