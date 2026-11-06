@@ -4,7 +4,7 @@
   index.html            홈(분야별 메뉴, 검색, 자주 찾는 주제)
   cat-<분야>.html        대분류 페이지(파트 → 장 목록)
   ch01~ch41.html        장별 본문
-  appA~appD.html        자료실(부록)
+  appA~appE.html        자료실(부록)
   about.html            머리말·면책 고지
   assets/site.js        메뉴·검색 스크립트(검색 색인 포함)
   _artifact_home.html   Artifact 게시용 홈(doctype 없는 버전)
@@ -16,6 +16,11 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 SRC = HERE / "전자책" / "src"
+# 전세 전자책 원고(별도 폴더) → 「전세·주거」 메뉴
+SRC_JS = HERE.parent / "부동산" / "전자책" / "src"
+INCLUDE_JEONSE = False  # 홈페이지는 보험 내용만(2026.11 사용자 요청). True로 바꾸면 전세 메뉴가 다시 생김
+JS_PDF_NAME = "전세계약전에꼭읽는책.pdf"
+JS_PDF = HERE.parent / "부동산" / "전자책" / JS_PDF_NAME
 OUT = HERE
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
@@ -27,9 +32,9 @@ SITE_NAME = "보험 보장 가이드"
 # ▼▼▼ 상담·연락처 설정 — 여기만 바꾸면 사이트 전체에 반영됩니다 ▼▼▼
 CONTACT = {
     "name": "박혜경",                               # 상담사 이름
-    "role": "보험친구 · 보장분석 상담",                     # 직함/소개 한 줄
+    "role": "보장분석 상담",                     # 직함/소개 한 줄
     "company": "(주)뉴니케 보험자산관리전문회사(GA)",            # 소속
-    "reg_no": "NK301239",# 보험설계사 등록번호(광고 시 표시)
+    "reg_no": "",  # 등록번호는 표시하지 않음(2026.11 사용자 요청) # 보험설계사 등록번호(광고 시 표시)
     "phone": "010-3112-3533",                       # 대표 전화
     "kakao": "https://pf.kakao.com/_AGxlFX",        # 카카오톡 채널 주소(pf.kakao.com/_로 시작)
     "hours": "평일 09:00~18:00 · 카톡 상담은 24시간 접수",
@@ -52,12 +57,17 @@ GROUPS = [
     ("silson",  "실손보험",   "실손의료보험 1~5세대", "세대별 보장 차이, 보상하지 않는 사항, 4세대 차등제, 5세대 전환 손익분기점 계산법을 정리했습니다.", ["PART 10"]),
     ("living",  "치아·화재",  "치아보험·화재보험", "치과 치료비 구조와 치아보험 가입 요령, 실화책임법과 주택화재보험을 설명합니다.", ["PART 8", "PART 9"]),
     ("gov",     "정부지원",   "몰라서 못 받는 정부 지원제도", "본인부담상한제, 재난적 의료비, 산정특례, 임플란트·틀니 지원과 보험금 청구 요령입니다.", ["PART 11"]),
-    ("lib",     "자료실",     "실무 자료실", "질병분류코드(KCD) 읽는 법과 코드표, 보험 용어 사전, 보장분석 워크시트를 모았습니다.", ["부록"]),
+    ("jeonse",  "전세·주거",  "전세·주거 안전 — 전세사기 예방부터 피해 구제까지", "등기부 읽는 법, 계약 전·중·후 체크리스트 16가지와 특약 문구, 피해자 인정 신청과 최소보장제, 월세 계약과 세입자 보험까지 정리했습니다.", []),
+    ("lib",     "자료실",     "실무 자료실", "질병분류코드(KCD) 읽는 법과 코드표, 1~5종 수술분류표, 보험 용어 사전, 보장분석 워크시트를 모았습니다.", ["부록"]),
 ]
+if not INCLUDE_JEONSE:
+    GROUPS = [g for g in GROUPS if g[0] != "jeonse"]
 PART2GROUP = {p: g[0] for g in GROUPS for p in g[4]}
 GROUP = {g[0]: g for g in GROUPS}
 
 QUICK = [  # 홈 '자주 찾는 주제'
+    ("js04", "전세 계약 체크리스트 16", "특약 2줄"),
+    ("js06", "전세사기 최소보장제", "11.13 시행"),
     ("ch37", "5세대 실손 전환, 손해일까?", "BEP"),
     ("ch28", "운전자보험 변호사 현물급부", "2026"),
     ("ch23", "상속세 얼마나 나올까", "20억 예시"),
@@ -68,6 +78,7 @@ QUICK = [  # 홈 '자주 찾는 주제'
     ("ch03", "알릴의무 3·N·5 간편심사", "3·N·5"),
     ("ch39", "본인부담상한제 환급", "3년"),
     ("appB", "질병코드 요약표", "KCD-8"),
+    ("appC", "1~5종 수술분류표", "1~5종"),
 ]
 
 
@@ -76,47 +87,64 @@ def strip_tags(s):
 
 
 # ---------------------------------------------------------------- 파싱
-body = "\n".join(p.read_text(encoding="utf-8") for p in sorted(SRC.glob("*.html")) if p.name[0].isdigit())
-sections = re.findall(r'<section class="(chapter|divider|cover)"[^>]*>(.*?)</section>', body, re.S)
-
 parts = []      # {num, title, lead, group, chapters:[key]}
-pages = {}      # key -> {key, no, title, intro, html, part}
-order = []      # 본문 페이지 순서(이전/다음)
+pages = {}      # key -> {key, no, title, intro, html, part, src}
+order = []      # 본문 페이지 순서(검색·개수)
 about_html = []
-cur = None
-for kind, inner in sections:
-    if kind == "cover":
-        continue
-    if kind == "divider":
-        num = strip_tags(re.search(r'<div class="num">(.*?)</div>', inner, re.S).group(1))
-        title_raw = re.search(r"<h1>(.*?)</h1>", inner, re.S).group(1)
-        title = strip_tags(title_raw.replace("<br>", " — "))
-        lead = strip_tags(re.search(r'<p class="lead">(.*?)</p>', inner, re.S).group(1))
-        cur = {"num": num, "title": title, "lead": lead, "group": PART2GROUP[num], "chapters": []}
-        parts.append(cur)
-        continue
-    no = strip_tags(re.search(r'<span class="no">(.*?)</span>', inner, re.S).group(1))
-    title = strip_tags(re.search(r"<h1>(.*?)</h1>", inner, re.S).group(1))
-    m_intro = re.search(r'<p class="intro">(.*?)</p>', inner, re.S)
-    intro = strip_tags(m_intro.group(1)) if m_intro else ""
-    content = re.sub(r'<div class="ch-head">.*?</div>', "", inner, count=1, flags=re.S)
-    if no in ("PROLOGUE", "EPILOGUE"):
-        about_html.append((no, title, content))
-        continue
-    if no.startswith("CHAPTER"):
-        key = "ch" + no.split()[1]
-        label = no.split()[1]
-    else:  # APPENDIX A
-        key = "app" + no.split()[1]
-        label = no.split()[1]
-    pages[key] = {"key": key, "no": no, "label": label, "title": title, "intro": intro,
-                  "html": content, "part": cur}
-    cur["chapters"].append(key)
-    order.append(key)
 
 
-def fix_content(h):
+def parse(src, kp, ap, group=None, src_id="ins"):
+    """원고 폴더를 읽어 parts/pages/order에 더한다. kp·ap = 장·부록 주소 머리글자."""
+    body = "\n".join(p.read_text(encoding="utf-8") for p in sorted(src.glob("*.html")) if p.name[0].isdigit())
+    sections = re.findall(r'<section class="(chapter|divider|cover)"[^>]*>(.*?)</section>', body, re.S)
+    cur = None
+    last = None
+    for kind, inner in sections:
+        if kind == "cover":
+            continue
+        if kind == "divider":
+            num = strip_tags(re.search(r'<div class="num">(.*?)</div>', inner, re.S).group(1))
+            title_raw = re.search(r"<h1>(.*?)</h1>", inner, re.S).group(1)
+            title = strip_tags(title_raw.replace("<br>", " — "))
+            lead = strip_tags(re.search(r'<p class="lead">(.*?)</p>', inner, re.S).group(1))
+            cur = {"num": num, "title": title, "lead": lead, "group": group or PART2GROUP[num], "chapters": []}
+            parts.append(cur)
+            continue
+        m_no = re.search(r'<span class="no">(.*?)</span>', inner, re.S)
+        if not m_no:  # 장 제목 없이 이어지는 쪽(예: 오려 쓰는 체크리스트) → 앞 장에 붙임
+            if last:
+                pages[last]["html"] += "\n" + inner
+            continue
+        no = strip_tags(m_no.group(1))
+        title = strip_tags(re.search(r"<h1>(.*?)</h1>", inner, re.S).group(1))
+        m_intro = re.search(r'<p class="intro">(.*?)</p>', inner, re.S)
+        intro = strip_tags(m_intro.group(1)) if m_intro else ""
+        content = re.sub(r'<div class="ch-head">.*?</div>', "", inner, count=1, flags=re.S)
+        if no in ("PROLOGUE", "EPILOGUE"):
+            if src_id == "ins":
+                about_html.append((no, title, content))
+            continue
+        if cur is None:
+            continue
+        label = no.split()[1]
+        key = (kp if no.startswith("CHAPTER") else ap) + label
+        pages[key] = {"key": key, "no": no, "label": label, "title": title, "intro": intro,
+                      "html": content, "part": cur, "src": src_id}
+        cur["chapters"].append(key)
+        order.append(key)
+        last = key
+
+
+parse(SRC, "ch", "app")
+if INCLUDE_JEONSE and SRC_JS.exists():
+    parse(SRC_JS, "js", "js", group="jeonse", src_id="js")
+
+
+def fix_content(h, kp="ch"):
     """본문 HTML을 웹용으로 정리: 표 감싸기, 장 번호 참조를 링크로."""
+    # 전자책 전용 연락처 상자는 빼고(웹은 아래 상담 안내로 대신), 이미지 경로를 assets로
+    h = re.sub(r'\s*<div class="contact-box">.*?<div class="cb-qr">.*?</div>\s*</div>', "", h, flags=re.S)
+    h = re.sub(r'src="((?:qr|profile)-[a-z]+\.(?:png|jpg))"', r'src="assets/\1"', h)
     h = h.replace("<table", '<div class="tbl"><table').replace("</table>", "</table></div>")
     h = re.sub(r'style="margin-top:\d+mm"', "", h)
 
@@ -124,8 +152,8 @@ def fix_content(h):
         nums = re.findall(r"\d\d", m.group(0))
         out = m.group(0)
         for n in dict.fromkeys(nums):
-            if f"ch{n}" in pages:
-                out = re.sub(rf"(?<![\d>]){n}(?!\d)", f'<a href="ch{n}.html">{n}</a>', out, count=1)
+            if f"{kp}{n}" in pages:
+                out = re.sub(rf"(?<![\d>]){n}(?!\d)", f'<a href="{kp}{n}.html">{n}</a>', out, count=1)
         return out.replace("CHAPTER ", "CHAPTER&nbsp;", 1)
     h = re.sub(r"(?<=[\s(])CHAPTER \d\d(?:\s?[·~,]\s?\d\d)*", link_refs, h)
     return h
@@ -174,8 +202,8 @@ def gnb(active_group=None):
 
 FOOT = f"""<footer class="site-foot"><div class="wrap">
   <figure class="qr foot-qr"><img src="assets/qr-kakao.png" alt="카카오톡 상담 QR코드" width="88" height="88" loading="lazy"><figcaption>카톡 상담 QR</figcaption></figure>
-  <div class="foot-contact"><b>{CONTACT["name"]}</b> · {CONTACT["role"]}{"<br>" + ORG_LINE if ORG_LINE else ""}<br>전화 <span class="sel">{CONTACT["phone"]}</span> · {CONTACT["hours"]} · <a href="contact.html">상담 신청</a> · <a href="{KAKAO_CHAT}" target="_blank" rel="noopener">카카오톡 채널</a></div>
-  <div><b>보험 보장 가이드</b> · 『한 권으로 끝내는 보험 보장 가이드』(2026년 10월 개정판) 웹판</div>
+  <div class="foot-contact"><b>보험친구 {CONTACT["name"]}</b> · {CONTACT["role"]}{"<br>" + ORG_LINE if ORG_LINE else ""}<br>전화 <span class="sel">{CONTACT["phone"]}</span> · {CONTACT["hours"]} · <a href="contact.html">상담 신청</a> · <a href="{KAKAO_CHAT}" target="_blank" rel="noopener">카카오톡 채널</a></div>
+  <div><b>보험 보장 가이드</b> · 『한 권으로 끝내는 보험 보장 가이드』(2026년 10월 개정판){"·『전세 계약 전에 꼭 읽는 책』" if INCLUDE_JEONSE else ""} 웹판</div>
   <div>이 사이트는 보험에 대한 일반적인 정보를 제공하며 특정 상품의 가입·해지·전환을 권유하지 않습니다. 통계·제도·금액은 2026년 10월 기준 공개 자료를 바탕으로 하며 이후 바뀔 수 있습니다. 개별 계약의 보장은 해당 약관과 보험증권, 보험회사의 심사에 따릅니다. 보험계약 체결 전 상품설명서와 약관을 반드시 읽어 보시기 바랍니다.</div>
 </div></footer>"""
 
@@ -189,7 +217,7 @@ TABBAR = f"""<nav class="tabbar" aria-label="빠른 이동">
 <a class="kakao-fab" href="{KAKAO_CHAT}" target="_blank" rel="noopener" aria-label="카카오톡으로 상담하기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9l-.9 3.3c-.1.3.3.6.6.4l3.9-2.6c.4 0 .8.1 1.2.1 5 0 9-3.1 9-7S17 4 12 4z"/></svg><span>카톡 상담</span></a>"""
 
 
-SITE_URL = "https://theorm303-droid.github.io/insurance-guide/"
+SITE_URL = "https://xn--2e0bn80a77m76g.kr/"
 OG_DESC = "어려운 보험을 쉽게, 내 보험 점검부터. 실손·건강·간병·노후 준비·보험금 청구까지 보험친구 박혜경이 쉽게 풀어 드립니다."
 
 
@@ -197,7 +225,7 @@ def og_tags(title, desc):
     """카톡·문자·SNS 링크 미리보기(썸네일) 정보."""
     d = html.escape(desc or OG_DESC)
     t = html.escape(title if title != SITE_NAME else "보험이 쉬워지는 시간 · 보험친구 박혜경")
-    img = SITE_URL + "assets/og-image.jpg"
+    img = SITE_URL + "assets/og-card.jpg"
     return (f'<meta property="og:type" content="website">\n'
             f'<meta property="og:site_name" content="보험이 쉬워지는 시간">\n'
             f'<meta property="og:title" content="{t}">\n'
@@ -231,6 +259,13 @@ CTA = f"""<aside class="cta" aria-label="상담 안내">
 </aside>"""
 
 
+CTA_JS = f"""<aside class="cta" aria-label="상담 안내">
+  <a class="cta-face" href="profile.html"><img src="assets/profile-face.jpg" alt="보험친구 박혜경 사진" width="64" height="64" loading="lazy"></a>
+  <div><b>개별 사건은 전세피해지원센터·변호사와 상담하세요</b><p>이 글은 일반적인 정보입니다. 세입자에게 필요한 보험(주택화재·임차자 배상책임)이 궁금하면 편하게 물어보세요. <a href="js08.html">세입자가 챙길 보험 보기</a></p></div>
+  <div class="cta-btns"><a class="btn btn-kakao" href="{KAKAO_CHAT}" target="_blank" rel="noopener">카카오톡 문의</a></div>
+</aside>"""
+
+
 def crumb(*items):
     out = ['<a href="index.html">홈</a>']
     for label, href in items:
@@ -254,23 +289,30 @@ for idx, key in enumerate(order):
             cur_attr = ' aria-current="page"' if k == key else ""
             side.append(f'<li><a href="{k}.html"{cur_attr}>{pages[k]["label"]}. {html.escape(pages[k]["title"])}</a></li>')
         side.append("</ul>")
-    prev_k = order[idx - 1] if idx > 0 else None
-    next_k = order[idx + 1] if idx + 1 < len(order) else None
+    same = [k for k in order if pages[k]["src"] == pg["src"]]  # 이전·다음은 같은 책 안에서만
+    j = same.index(key)
+    prev_k = same[j - 1] if j > 0 else None
+    next_k = same[j + 1] if j + 1 < len(same) else None
     pager = '<nav class="pager" aria-label="이전·다음 장">'
     if prev_k:
         pager += f'<a class="prev" href="{prev_k}.html"><small>← 이전 {pages[prev_k]["no"]}</small>{html.escape(pages[prev_k]["title"])}</a>'
     if next_k:
         pager += f'<a class="next" href="{next_k}.html"><small>다음 {pages[next_k]["no"]} →</small>{html.escape(pages[next_k]["title"])}</a>'
     pager += "</nav>"
-    eyebrow = f'{pg["no"]} · {part["num"]} {part["title"]}' if part["num"] != "부록" else f'자료실 · 부록 {pg["label"]}'
+    if part["num"] != "부록":
+        eyebrow = f'{pg["no"]} · {part["num"]} {part["title"]}'
+    else:
+        eyebrow = ("전세·주거 안전" if pg["src"] == "js" else "자료실") + f' · 부록 {pg["label"]}'
+    kp = "js" if pg["src"] == "js" else "ch"
+    cta = CTA if (pg["src"] != "js" or key == "js08") else CTA_JS
     inner = f"""<div class="wrap">{crumb((g[1], f"cat-{gid}.html"), (pg["title"], None))}
 <div class="doc">
   <aside class="side" aria-label="이 분야의 다른 장">{"".join(side)}</aside>
   <article class="content">
     <details class="m-side"><summary>{html.escape(g[1])} · 이 분야 다른 장 보기</summary>{"".join(side[1:])}</details>
     <header class="ch-head"><div class="eyebrow">{html.escape(eyebrow)}</div><h1>{html.escape(pg["title"])}</h1>{f'<p class="intro">{html.escape(pg["intro"])}</p>' if pg["intro"] else ""}</header>
-    {fix_content(pg["html"])}
-    {CTA}
+    {fix_content(pg["html"], kp)}
+    {cta}
     {pager}
   </article>
 </div></div>"""
@@ -289,6 +331,11 @@ for gid, label, gtitle, gdesc, _p in GROUPS:
         blocks.append(f'<section class="part-block"><div class="eyebrow">{plabel}</div><h2>{html.escape(p["title"])}</h2>'
                       f'<p>{html.escape(p["lead"])}</p><ul class="ch-list">{lis}</ul></section>')
     n = sum(len(p["chapters"]) for p in parts if p["group"] == gid)
+    if gid == "jeonse":
+        blocks.insert(0, (f'<div class="js-dl"><p><b>『전세 계약 전에 꼭 읽는 책』 PDF</b><br>2026년 11월 개정 제도 반영 · 오려 쓰는 체크리스트 수록</p>'
+                          f'<a class="btn btn-primary" href="전자책/{JS_PDF_NAME}" download>전자책 PDF 내려받기</a></div>'
+                          '<p class="js-note">이 분야의 글은 일반적인 정보이며 법률 자문이 아닙니다. 개별 사건은 전세피해지원센터·변호사와 상담하세요. '
+                          '전세보증보험은 HUG·HF·SGI서울보증의 상품으로, 가입 방법만 안내합니다.</p>'))
     inner = f"""<div class="cat-hero"><div class="wrap">{crumb((label, None))}
 <div class="eyebrow">{label} · {n}개 주제</div><h1>{html.escape(gtitle)}</h1><p>{html.escape(gdesc)}</p></div></div>
 <div class="wrap">{"".join(blocks)}<div style="height:48px"></div></div>"""
@@ -313,7 +360,7 @@ contact_inner = f"""<div class="wrap">{crumb(("상담 신청", None))}
     <div class="contact-face"><img src="assets/profile-face.jpg" alt="보험친구 박혜경 사진" width="96" height="96"><div><div class="eyebrow">CONTACT</div><h1>보험 상담 신청</h1></div></div>
     <p class="lead2">안녕하세요, 보험이 쉬워지는 시간 보험친구 박혜경입니다. 보장분석, 실손 전환, 부모님 간병·치매 보험까지 궁금한 점을 편하게 남겨 주세요. 확인 후 직접 연락드립니다.</p>
     <dl class="who">
-      <dt>상담사</dt><dd><b>{CONTACT["name"]}</b> · {CONTACT["role"]}</dd>
+      <dt>상담사</dt><dd><b>보험친구 {CONTACT["name"]}</b> · {CONTACT["role"]}</dd>
       {ORG_ROWS}
       <dt>상담 시간</dt><dd>{CONTACT["hours"]}</dd>
     </dl>
@@ -373,7 +420,7 @@ profile_inner = f"""<div class="pf-hero"><div class="wrap">
   <div class="pf-hero-grid">
     <div class="pf-card">
       <img src="assets/profile-portrait.jpg" alt="보험친구 박혜경 사진" width="330" height="341">
-      <div class="pf-name"><small>보험이 쉬워지는 시간</small><b>박혜경</b><span>{CONTACT["company"]} 보험설계사</span><span>설계사 등록번호 {CONTACT["reg_no"]}</span></div>
+      <div class="pf-name"><small>보험이 쉬워지는 시간</small><b>박혜경</b><span>{CONTACT["company"]} 보험설계사</span>{f'<span>설계사 등록번호 {CONTACT["reg_no"]}</span>' if CONTACT["reg_no"] else ""}</div>
     </div>
     <div class="pf-intro">
       <div class="eyebrow">보험친구 박혜경</div>
@@ -478,7 +525,7 @@ for gid, label, gtitle, gdesc, _p in GROUPS:
     more = f'<a class="more" href="cat-{gid}.html">{label} 전체 {len(keys)}개 주제 보기 →</a>'
     cards.append(f'<div class="cat"><span class="count">{len(keys)} TOPICS</span><h3><a href="cat-{gid}.html">{label}</a></h3>'
                  f'<p class="desc">{html.escape(gdesc)}</p><ul>{lis}</ul>{more}</div>')
-chips = "".join(f'<a href="{k}.html">{html.escape(t)} <code>{html.escape(c)}</code></a>' for k, t, c in QUICK)
+chips = "".join(f'<a href="{k}.html">{html.escape(t)} <code>{html.escape(c)}</code></a>' for k, t, c in QUICK if k in pages)
 home_inner = f"""<section class="hero2">
   <div class="wrap hero2-in">
     <p class="h2-top">어려운 보험을 쉽게, 내 보험 점검부터</p>
@@ -486,7 +533,7 @@ home_inner = f"""<section class="hero2">
     <h1>보험이 쉬워지는 시간</h1>
     <p class="h2-name">보험친구 박혜경</p>
     <nav class="h2-pills" aria-label="주요 분야">
-      <a href="cat-silson.html">실손</a><a href="cat-disease.html">건강</a><a href="cat-care.html">간병</a><a href="cat-life.html">노후 준비</a><a href="ch41.html">보험금 청구</a>
+      <a href="cat-silson.html">실손</a><a href="cat-disease.html">건강</a><a href="cat-care.html">간병</a><a href="cat-life.html">노후 준비</a><a href="ch41.html">보험금 청구</a><a href="cat-jeonse.html">전세 안전</a>
     </nav>
     <div class="search" role="search">
       <label for="q" class="skip">주제 검색</label>
@@ -499,7 +546,7 @@ home_inner = f"""<section class="hero2">
 <section class="section pf-home"><div class="wrap">{HOME_PROFILE}</div></section>
 <section class="section tl-sec"><div class="wrap">{TOCLIST}</div></section>
 <section class="section home-cats" style="padding-top:0"><div class="wrap">
-  <div class="section-head"><h2>분야별 안내</h2><p>상단 메뉴와 같은 10개 분야입니다.</p></div>
+  <div class="section-head"><h2>분야별 안내</h2><p>상단 메뉴와 같은 {len(GROUPS)}개 분야입니다.</p></div>
   <div class="cats">{"".join(cards)}</div>
 </div></section>
 <section class="section" style="padding-top:0"><div class="wrap">
@@ -511,7 +558,7 @@ home_inner = f"""<section class="hero2">
   <div class="howto">
     <div><b>보험증권 모으기</b><p>'내보험다보여'에서 가족 전체 가입 내역을 조회합니다.</p></div>
     <div><b>분야별 점검</b><p>메뉴에서 관심 분야를 골라 각 장 끝의 체크리스트를 확인합니다.</p></div>
-    <div><b>워크시트 정리</b><p><a href="appD.html">보장분석 워크시트</a>에 위험별 보장 금액을 채웁니다.</p></div>
+    <div><b>워크시트 정리</b><p><a href="appE.html">보장분석 워크시트</a>에 위험별 보장 금액을 채웁니다.</p></div>
     <div><b>1년마다 다시</b><p>갱신·만기·가족 변화가 있을 때마다 다시 점검합니다.</p></div>
   </div>
 </div></section>"""
@@ -678,4 +725,7 @@ js = """(function () {
 """
 (OUT / "assets" / "site.js").write_text(js.replace("__INDEX__", json.dumps(index, ensure_ascii=False)), encoding="utf-8")
 
+if INCLUDE_JEONSE and JS_PDF.exists():  # 전세 전자책 PDF를 홈페이지 전자책 폴더로 복사(내려받기용)
+    import shutil
+    shutil.copyfile(JS_PDF, OUT / "전자책" / JS_PDF_NAME)
 print("pages:", len(order), "chapters/appendix +", len(GROUPS), "categories + index/about")

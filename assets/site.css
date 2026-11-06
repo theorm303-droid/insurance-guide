@@ -765,3 +765,30 @@ article.content { min-width: 0; max-width: 820px; }
   .chips::-webkit-scrollbar { display: none; }
   .chips a { flex: none; white-space: nowrap; }
 }
+
+/* ---------- 전세·주거 안전 (전세 전자책 원고용) ---------- */
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 14px 0 20px; }
+.stat { background: var(--key-soft); border-radius: var(--radius); padding: 14px 10px; text-align: center; }
+.stat b { display: block; font-size: 1.45rem; font-weight: 700; color: var(--fill-o); line-height: 1.2; }
+.stat span { display: block; font-size: .86rem; font-weight: 700; margin-top: 4px; }
+.stat small { display: block; font-size: .74rem; color: var(--sub); margin-top: 2px; line-height: 1.4; }
+.signal { border: 1.5px solid var(--fill-o); border-radius: var(--radius); padding: 12px 18px; margin: 8px 0 20px; background: var(--surface); }
+.signal .label { display: block; color: var(--warn); font-weight: 700; margin-bottom: 4px; }
+.signal ul { margin: 0; }
+.reg { border: 2px solid var(--brand); border-radius: var(--radius); overflow: hidden; margin: 14px 0 20px; font-size: .92rem; }
+.reg .rh { background: var(--brand); color: var(--brand-ink); font-weight: 700; padding: 8px 14px; }
+.reg .rb { padding: 10px 14px; border-bottom: 1px solid var(--line); line-height: 1.65; }
+.reg .rb:last-child { border-bottom: 0; }
+.reg .pin { display: inline-block; background: var(--fill-o); color: #fff; border-radius: 4px; padding: 0 7px; font-size: .78rem; font-weight: 700; margin-left: 6px; }
+.clause { background: var(--gold-soft); border: 1px solid var(--gold-line); border-left: 5px solid var(--gold-line); border-radius: var(--radius); padding: 14px 18px; margin: 10px 0 16px; font-family: var(--f-display); line-height: 1.8; }
+.clause b { display: block; font-family: var(--f-body); color: var(--gold); font-size: .86rem; margin-bottom: 4px; }
+.cutout { border: 2px dashed var(--line); border-radius: var(--radius); padding: 18px 20px; margin: 28px 0 8px; }
+.cutout .foot { font-size: .8rem; color: var(--sub); border-top: 1px solid var(--line); padding-top: 8px; margin-top: 8px; }
+.js-dl { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 20px; margin: 22px 0 6px; }
+.js-dl p { margin: 0; flex: 1 1 260px; }
+.js-note { font-size: .86rem; color: var(--sub); margin: 10px 0 0; }
+@media (max-width: 760px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stat b { font-size: 1.2rem; } }
+
+/* 휴대폰에서도 옆으로 밀지 않고 줄바꿈되는 표 (부록 E 수술분류표) */
+.tbl table.fit, .tbl table.fit.compact { min-width: 0; }
+.tbl table.fit td { word-break: keep-all; overflow-wrap: anywhere; }
