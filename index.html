@@ -1046,6 +1046,11 @@ main.page[hidden]{display:none!important}
   .hx-quick.one a b { font-size: 1rem; }
   .hx-quick.one a small { font-size: .78rem; }
 }
+
+/* 위쪽 큰 타일도 마우스를 올리거나 누르면 오렌지 테두리 */
+.hx-t { border: 2px solid transparent; transition: border-color .15s, transform .15s; }
+.hx-t:hover, .hx-t:focus-visible, .hx-t:active, .hx-t:focus { border-color: var(--pt); outline: none; }
+.h3-tiles a:active, .h3-tiles a:focus-visible { border-color: var(--pt); box-shadow: 0 0 0 1px var(--pt) inset; outline: none; }
 </style></head><body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 <header class="site-head" id="top">
