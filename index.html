@@ -1081,6 +1081,15 @@ input[type="search"]:focus-visible, [data-search]:focus-visible, [data-filter]:f
 .m-side li a[aria-current="page"] { color: var(--pt); background: var(--pt-soft); }
 .tabbar a:active, .tabbar button:active, .tabbar a:hover, .tabbar button:hover { color: var(--pt); }
 .cat:hover { border-color: var(--pt); }
+
+/* 맨 위 작은 글자(길 안내·분류 표시) 키우기 */
+.crumb { font-size: 1rem; gap: 8px; }
+.eyebrow { font-family: var(--f-body); font-size: 1rem; font-weight: 700; letter-spacing: .02em; }
+.cat-hero .eyebrow { font-size: 1.05rem; }
+@media (max-width: 760px) {
+  .crumb { font-size: .95rem; }
+  .eyebrow { font-size: .95rem; }
+}
 </style></head><body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 <header class="site-head" id="top">
