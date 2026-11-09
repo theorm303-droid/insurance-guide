@@ -1064,6 +1064,23 @@ input[type="search"]:focus-visible, [data-search]:focus-visible, [data-filter]:f
 .results a:hover small, .results a.on small { color: var(--pt); }
 .head-search:hover, .head-search:focus-visible { background: var(--pt); color: #fff; outline: none; }
 .tabbar [data-open="search"]:active svg, .tabbar [data-open="search"]:hover svg { stroke: var(--pt); }
+
+/* 누르거나 마우스를 올리면 모두 오렌지 */
+:focus-visible { outline-color: var(--pt); }
+.ch-list a { transition: border-color .15s, box-shadow .15s; }
+.ch-list a:hover, .ch-list a:active, .ch-list a:focus-visible,
+.pager a:hover, .pager a:active, .pager a:focus-visible,
+.chips a:hover, .chips a:active { border-color: var(--pt); box-shadow: 0 0 0 1px var(--pt) inset; outline: none; }
+.ch-list a:hover .n, .ch-list a:active .n, .pager a:hover small, .chips a:hover { color: var(--pt); }
+.btn-ghost:hover, .btn-ghost:active { border-color: var(--pt); color: var(--pt); }
+.h3-ghost:hover, .h3-ghost:active { background: var(--pt-soft); border-color: var(--pt); }
+.crumb a:hover, .cat h3 a:hover, .cat li a:hover, .pf-posts li a:hover, .head-link:hover, .side li a:hover { color: var(--pt); }
+.mega li a:hover, .mnav li a:hover, .mnav li a:active { background: var(--pt-soft); color: var(--ink); }
+.mnav summary:hover { color: var(--pt); }
+.side li a[aria-current="page"] { color: var(--pt); border-left-color: var(--pt); }
+.m-side li a[aria-current="page"] { color: var(--pt); background: var(--pt-soft); }
+.tabbar a:active, .tabbar button:active, .tabbar a:hover, .tabbar button:hover { color: var(--pt); }
+.cat:hover { border-color: var(--pt); }
 </style></head><body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 <header class="site-head" id="top">
