@@ -1051,6 +1051,19 @@ main.page[hidden]{display:none!important}
 .hx-t { border: 2px solid transparent; transition: border-color .15s, transform .15s; }
 .hx-t:hover, .hx-t:focus-visible, .hx-t:active, .hx-t:focus { border-color: var(--pt); outline: none; }
 .h3-tiles a:active, .h3-tiles a:focus-visible { border-color: var(--pt); box-shadow: 0 0 0 1px var(--pt) inset; outline: none; }
+
+/* 모든 검색: 오렌지 */
+input[type="search"], [data-search], [data-filter] { caret-color: var(--pt); transition: border-color .15s, box-shadow .15s; }
+input[type="search"]:hover, [data-search]:hover, [data-filter]:hover { border-color: var(--pt) !important; }
+input[type="search"]:focus, [data-search]:focus, [data-filter]:focus,
+input[type="search"]:focus-visible, [data-search]:focus-visible, [data-filter]:focus-visible {
+  outline: none; border: 2px solid var(--pt) !important; box-shadow: 0 0 0 4px rgba(238,122,19,.18); }
+.results { border-color: var(--pt); border-top: 3px solid var(--pt); }
+.results a { border-left: 3px solid transparent; }
+.results a:hover, .results a.on, .results a:focus-visible { background: var(--pt-soft); border-left-color: var(--pt); color: var(--ink); outline: none; }
+.results a:hover small, .results a.on small { color: var(--pt); }
+.head-search:hover, .head-search:focus-visible { background: var(--pt); color: #fff; outline: none; }
+.tabbar [data-open="search"]:active svg, .tabbar [data-open="search"]:hover svg { stroke: var(--pt); }
 </style></head><body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 <header class="site-head" id="top">
